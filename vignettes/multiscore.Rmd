@@ -1,0 +1,169 @@
+---
+title: "Scored/ranked multiple responses"
+author: "Thomas Lumley"
+date: "8/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Scored/ranked responses
+
+```{r}
+birds <- matrix( c(1,F,2,F,F,
+                       1,2,F,F,3,
+                       F,1,F,F,F,
+                       F,2,1,F,F,
+                       2,3,1,F,4,
+                       2,NA,F,1,F), byrow=TRUE,ncol=5)
+colnames(birds)<-c("kea","ruru","tui","tauhou","kaki")
+attr(birds,"class")<-c("ms")
+```
+
+
+
+
+```{r}
+as.ms<-function(x,...) UseMethod("as.ms")
+
+levels.ms<-function(x,...) colnames(x)
+"levels<-.ms"<-function(x, value) {
+  colnames(x)<-value
+  x
+}
+
+as.logical.ms<-function(x,...) {unclass(x)>0}
+
+as.numeric.ms<-function(x,...){
+  unclass(x)
+}
+
+as.mr.ms<-function(x,...) {
+  x<-as.logical(x)
+  class(x)<-"mr"
+  x
+}
+
+as.ms.mr<-function(x,...) {
+  x<-unclass(x)+0
+  class(x)<-"ms"
+  x
+}
+
+
+ms_na<-function(x){
+  y<-as.numeric(x)
+  y[is.na(y)]<-0
+  levels(y)<-levels(x)
+  class(y)<-"ms"
+  y
+}
+    
+as.character.ms<-function(x){
+  levels<-levels(x)
+  y<-as.character(unclass(x))
+  x[unclass(x)==0]<-"."
+  noquote(unclass(x))
+}
+
+as.character(birds)
+
+print.ms<-function(x,...) print(as.character(x))
+
+as.ms.ms<-function(x,...) x
+as.ms.default<-function(x,...) as.ms(as.mr(x))
+
+```
+
+
+
+```{r}
+"[.ms"<-function(x,i,j){
+  levels<-levels(x)
+  x<-unclass(x)[i,j,drop=FALSE]
+  new_levels<-levels[j]
+  class(x)<-"ms"
+  levels(x)<-new_levels
+  x
+}
+
+
+length.ms<-function(x) NROW(x)
+
+length(birds)
+birds[1,]
+birds[1:2,]
+birds[,1:2]
+birds[,"ruru"]
+```
+
+
+
+```{r}
+"%has%"<- function(x,y) {
+  if (is.factor(y)) y<-as.character(y)
+  if (!is.character(y)) stop('needs to be character or factor')
+  if(length(y)==1) y<-rep(y,length(x))
+  ifelse(y %in% levels(x), unclass(x)[,match(y,levels(x))]>0 ,FALSE)
+}
+
+birds %has% "ruru"
+
+"%hasonly%"<- function(x,y) {
+  (x %has% y) & (mr_count(x)==1)
+}
+
+birds %hasonly% "ruru"
+```
+
+
+
+```{r}
+ms_reorder<-function(x, v, fun=median){
+  values<-apply(x, 2, function(xi) fun(v[xi]))
+  x<-x[,order(values)]
+  x
+}
+ms_inseq<-function(x){
+  x<-x[,order(colnames(x))]
+  x
+}
+ms_inorder<-function(x){
+  pos<-apply(as.logical(x),2, function(xi) min(which(xi)))
+  x<-x[,order(pos)]
+  x
+}
+ms_infreq<-function(x){
+  freqs<-colSums(x>0)  
+  x<-x[,order(-freqs)]
+  x
+}
+
+sum0<-function(x) -sum(x[x>0],na.rm=TRUE)
+mean0<-function(x) {x = x[x>0]; if (length(x)) mean(x) else 0}
+
+ms_inscore<-function(x, fun=sum0){
+  freqs<-apply(x,2,fun)  
+  x<-x[,order(freqs)]
+  x
+}
+```
+
+
+
+
+```{r}
+stack.ms<-function(x,...,na.rm=FALSE){
+  levels<-levels(x)
+  x<-unclass(x)
+  x[is.na(x)]<-!na.rm
+  r<-rowSums(x>0)
+  values<-do.call(c,lapply(seq_len(NROW(x)),function(i) levels[x[i,]]))
+  id<-rep(seq_len(NROW(x)),r)
+  s<-as.numeric(t(unclass(x)))
+  data.frame(values=factor(values,levels=levels),scores=s[s>0],id)
+}
+stack(birds)
+```
