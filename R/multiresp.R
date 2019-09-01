@@ -1,7 +1,30 @@
 
 
+as.mr.data.frame<-function(x,...,na.rm=TRUE){        
+    x<-as.matrix(x)>0
+    if (na.rm){
+        x[is.na(x)]<-FALSE
+     }
+    class(x)<-"mr"
+    x
+}
+
+as.mr.list<-function(x,...,levels=NULL){
+    levs<-unique(do.call(c,x))
+    if (!is.null(levels)){
+        if (any(xtra<-setdiff(levs,levels)))
+            warning(paste("values not in 'levels' ",paste(xtra,collapse=", ")))
+        levs<-levels
+    }
+    m<-matrix(FALSE,nrow=length(x),ncol=length(levs))
+    for(i in seq_along(x)){
+        m[i,]<-levs %in% x[[i]]
+    }
+    m
+}
 
 levels.mr<-function(x,...) colnames(x)
+
 "levels<-.mr"<-function(x, value) {
   colnames(x)<-value
   x
@@ -36,7 +59,7 @@ as.data.frame.mr<-function(x,...){
   as.data.frame(unclass(x)+0)
 }
 
-"[.mr"<-function(x,i,j){
+"[.mr"<-function(x,i,j,...){
   levels<-levels(x)
   x<-as.logical(x)[i,j,drop=FALSE]
   new_levels<-levels[j]
@@ -137,7 +160,7 @@ mr_infreq<-function(x, na.rm=TRUE){
   x
 }
 
-prioritise<-function(x, priorities){
+mr_collapse<-function(x, priorities){
   y<-rep(NA_character_,length(x))
   for(l in rev(priorities)){
     y<-ifelse(x %has% l,l,y)
@@ -145,14 +168,7 @@ prioritise<-function(x, priorities){
   factor(y,levels=levels(x))
 }
 
-pr_eth<-prioritise(ethnicity, c("Māori","Pacific","Asian","MELAA","European"))
-str(pr_eth)
-```
 
-
-Tidying to individual indicators (like `gather`)
-
-```{r}
 stack.mr<-function(x,...,na.rm=FALSE){
   levels<-levels(x)
   x<-unclass(x)

@@ -1,6 +1,17 @@
 
 as.ms<-function(x,...) UseMethod("as.ms")
 
+
+as.ms.data.frame<-function(x,...,na.rm=TRUE){        
+    x<-as.matrix(x)
+    if (na.rm){
+        x[is.na(x)]<-0
+     }
+    class(x)<-"ms"
+    x
+ }
+
+
 levels.ms<-function(x,...) colnames(x)
 
 "levels<-.ms"<-function(x, value) {
@@ -42,14 +53,12 @@ as.character.ms<-function(x){
   noquote(unclass(x))
 }
 
-as.character(birds)
-
 print.ms<-function(x,...) print(as.character(x))
 
 as.ms.ms<-function(x,...) x
 as.ms.default<-function(x,...) as.ms(as.mr(x))
 
-"[.ms"<-function(x,i,j){
+"[.ms"<-function(x,i,j,...){
   levels<-levels(x)
   x<-unclass(x)[i,j,drop=FALSE]
   new_levels<-levels[j]
