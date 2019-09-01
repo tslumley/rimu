@@ -1,31 +1,4 @@
----
-title: "Scored/ranked multiple responses"
-author: "Thomas Lumley"
-date: "8/30/2019"
-output: html_document
----
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## Scored/ranked responses
-
-```{r}
-birds <- matrix( c(1,F,2,F,F,
-                       1,2,F,F,3,
-                       F,1,F,F,F,
-                       F,2,1,F,F,
-                       2,3,1,F,4,
-                       2,NA,F,1,F), byrow=TRUE,ncol=5)
-colnames(birds)<-c("kea","ruru","tui","tauhou","kaki")
-attr(birds,"class")<-c("ms")
-```
-
-
-
-
-```{r}
 as.ms<-function(x,...) UseMethod("as.ms")
 
 levels.ms<-function(x,...) colnames(x)
@@ -76,11 +49,6 @@ print.ms<-function(x,...) print(as.character(x))
 as.ms.ms<-function(x,...) x
 as.ms.default<-function(x,...) as.ms(as.mr(x))
 
-```
-
-
-
-```{r}
 "[.ms"<-function(x,i,j){
   levels<-levels(x)
   x<-unclass(x)[i,j,drop=FALSE]
@@ -93,35 +61,7 @@ as.ms.default<-function(x,...) as.ms(as.mr(x))
 
 length.ms<-function(x) NROW(x)
 
-length(birds)
-birds[1,]
-birds[1:2,]
-birds[,1:2]
-birds[,"ruru"]
-```
 
-
-
-```{r}
-"%has%"<- function(x,y) {
-  if (is.factor(y)) y<-as.character(y)
-  if (!is.character(y)) stop('needs to be character or factor')
-  if(length(y)==1) y<-rep(y,length(x))
-  ifelse(y %in% levels(x), unclass(x)[,match(y,levels(x))]>0 ,FALSE)
-}
-
-birds %has% "ruru"
-
-"%hasonly%"<- function(x,y) {
-  (x %has% y) & (mr_count(x)==1)
-}
-
-birds %hasonly% "ruru"
-```
-
-
-
-```{r}
 ms_reorder<-function(x, v, fun=median){
   values<-apply(x, 2, function(xi) fun(v[xi]))
   x<-x[,order(values)]
@@ -150,12 +90,7 @@ ms_inscore<-function(x, fun=sum0){
   x<-x[,order(freqs)]
   x
 }
-```
 
-
-
-
-```{r}
 stack.ms<-function(x,...,na.rm=FALSE){
   levels<-levels(x)
   x<-unclass(x)
@@ -166,12 +101,7 @@ stack.ms<-function(x,...,na.rm=FALSE){
   s<-as.numeric(t(unclass(x)))
   data.frame(values=factor(values,levels=levels),scores=s[s>0],id)
 }
-stack(birds)
-```
 
-
-
-```{r}
 image.ms<-function(x,...){
   image( t(as.logical(x)), axes=FALSE)
   axis(3,at=seq(0,1,length=length(levs)),labels=levs)
