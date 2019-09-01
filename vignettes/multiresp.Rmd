@@ -59,6 +59,10 @@ as.character.mr<-function(x,sep="+",na.rm=TRUE){
   sapply(x,paste,collapse=sep)
 }
 
+as.data.frame.mr<-function(x,...){
+  as.data.frame(unclass(x)+0)
+}
+
 as.character(ethnicity,na.rm=TRUE)
 as.character(ethnicity,na.rm=FALSE)
 ```
@@ -271,4 +275,41 @@ mtable(1:6,ethnicity)
 mtable(pr_eth,ethnicity)
 ```
 
+## Graphics
 
+```{r}
+library(UpSetR)
+
+plot.mr<-function(x,...){
+  UpSetR::upset(as.data.frame(x),...)
+}
+
+
+image.mr<-function(x,type=c("overlap","conditional","raw"),...){
+  type<-match.arg(type)
+  levs<-levels(x)
+  if (type=="raw"){
+    image( t(as.logical(x)), axes=FALSE)
+    axis(3,at=seq(0,1,length=length(levs)),labels=levs)
+    invisible(x)
+  } else{
+    m<-mtable(x,x)
+    switch(type,
+           overlap=image(m,...,axes=FALSE),
+           conditional=image(t(m/diag(m)),...,axes=FALSE)
+           )
+    axis(1,at=seq(0,1,length=length(levs)),labels=levs)
+    axis(2,at=seq(0,1,length=length(levs)),labels=levs,las=1)
+    if(type=="conditional"){
+      title(xlab="Proportion",ylab="Out of")
+    }
+    invisible(m)
+  }
+}
+
+
+image(ethnicity,type="raw")
+image(ethnicity)
+image(ethnicity, type="cond")
+plot(ethnicity)
+```
