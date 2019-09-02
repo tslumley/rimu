@@ -161,11 +161,26 @@ mr_infreq<-function(x, na.rm=TRUE){
 }
 
 mr_collapse<-function(x, priorities){
-  y<-rep(NA_character_,length(x))
-  for(l in rev(priorities)){
-    y<-ifelse(x %has% l,l,y)
-  }
-  factor(y,levels=levels(x))
+    y<-rep(NA_character_,length(x))
+    if (is.null(priorities))
+        priorities<-levels(x)
+    for(l in rev(priorities)){
+        y<-ifelse(x %has% l,l,y)
+    }
+    factor(y,levels=levels(x))
+}
+
+mr_recode<-function(x, ...){
+    new<-list(...)
+    newlevs<-names(new)
+    deadlevs<-unlist(new)
+    levs<-levels(x)
+    if(!all(deadlevs %in% levs)){
+        stop(paste("non-existent levels",setdiff(levs,deadlevs)))
+    }
+    levs[match(deadlevs,levs)]<-newlevs
+    levels(x)<-levs
+    x
 }
 
 
