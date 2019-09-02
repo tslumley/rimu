@@ -225,7 +225,7 @@ plot.mr<-function(x,...){
 }
 
 
-image.mr<-function(x,type=c("overlap","conditional","raw"),...){
+image.mr<-function(x,type=c("overlap","conditional","association","raw"),...){
   type<-match.arg(type)
   levs<-levels(x)
   if (type=="raw"){
@@ -235,14 +235,18 @@ image.mr<-function(x,type=c("overlap","conditional","raw"),...){
   } else{
     m<-mtable(x,x)
     switch(type,
-           overlap=image(m,...,axes=FALSE),
-           conditional=image(t(m/diag(m)),...,axes=FALSE)
+           overlap=ggimage(m,"",""),
+           conditional=ggimage(m/diag(m),"Given","Proportion present"),
+           association=ggimage(cov2cor(m),"","")
            )
-    axis(1,at=seq(0,1,length=length(levs)),labels=levs)
-    axis(2,at=seq(0,1,length=length(levs)),labels=levs,las=1)
-    if(type=="conditional"){
-      title(xlab="Proportion",ylab="Out of")
-    }
-    invisible(m)
   }
 }
+
+ggimage<-function(x,xlab,ylab){
+    d<-data.frame(x=rep(rownames(x),ncol(x)),
+                  y=rep(colnames(x),each=nrow(x)),
+                  z=as.vector(x))
+    ggplot(d, aes(x=x,y=y,fill=z))+
+        geom_raster()+xlab(xlab)+ylab(ylab)+
+        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+    }
