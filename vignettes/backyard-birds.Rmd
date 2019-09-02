@@ -1,0 +1,60 @@
+---
+title: "Multiple responses are for the birds"
+author: "Thomas Lumley"
+date: "02/09/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rimu)
+```
+
+The `rimu` package handles multiple-response data, a generalisation of factor data.  With factor data, there is a defined set of categories and each observation comes from one category.  With multiple-reponse data, there is a defined set of categories, but each observation could come from multiple categories. We provide two classes: `mr` for multiple-response presence/absence data,  and `ms` for scored or ranked multiple-responses where each category gets a non-zero score or rank. 
+
+The `birds` dataset is a small subset of data from the Great Backyard Bird Count, in the US and Canada.  We have counts of 12 birds by US county and Canadian province.  The twelve birds are
+
+```{r}
+data(birds)
+names(birds)[1:12]
+```
+There's a thirteenth column giving the location name.
+
+These birds are perhaps more familiar as
+
+- Common poorwill, *Phalaenoptilus nuttallii*
+- Frigatebird *Fregata magnificens*        
+- Lewis's woodpecker *Melanerpes lewis*             
+- Swamp sparrow *Melospiza georgiana*       
+- Virginia rail *Rallus limicola*        
+- Painted redstart *Myioborus pictus*            
+- Mountain chickadee *Poecile gambeli*             
+- Ring-necked duck *Aythya collaris*         
+- Yellowheaded blackbird *Xanthocephalus xanthocephalus*
+- Common hill myna *Gracula religiosa*           
+- Scott's oriole *Icterus parisorum*      
+- Black-billed cuckoo *Coccyzus erythropthalmus*
+
+First, let's put them into the data structures
+```{r}
+bird_count <- as.ms(birds[,-13],na.rm=TRUE)
+bird_presence <- as.mr(bird_count)
+```
+
+The bird counts will print like a sparse matrix
+```{r}
+head(bird_count)
+```
+but the bird presence/absence data has a more compact character form
+```{r}
+head(bird_presence)
+```
+
+What birds are most often present?
+```{r}
+mtable(bird_presence)
+```
+And what birds tend to go together? We can draw an upset chart
+```{r}
+plot(bird_presence,nsets=12)
+```

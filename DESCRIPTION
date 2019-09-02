@@ -3,7 +3,7 @@ Title: Responses in Multiplex
 Version: 0.1
 Author: Thomas Lumley
 Description: Tools for manipulating, exploring, and visualising  multiple-response data, including scored or ranked responses. 
-Imports: graphics, UpSetR
+Imports: graphics, stats, UpSetR
 License: GPL-3
 Maintainer: Thomas Lumley <t.lumley@auckland.ac.nz>
 
