@@ -61,7 +61,13 @@ as.ms.default<-function(x,...) as.ms(as.mr(x))
 "[.ms"<-function(x,i,j,...){
   levels<-levels(x)
   x<-unclass(x)[i,j,drop=FALSE]
-  new_levels<-levels[j]
+  if (!missing(j)){
+      if (is.character(j))
+          new_levels<-j
+      else
+          new_levels<-levels[j]
+  } else
+      new_levels<-levels
   class(x)<-"ms"
   levels(x)<-new_levels
   x
@@ -99,6 +105,38 @@ ms_inscore<-function(x, fun=sum0){
   x<-x[,order(freqs)]
   x
 }
+
+
+
+ms_flatten<-function(x, priorities, fun){
+    fun <- get(fun,mode="function")
+    y<-rep(0,length(x))
+    if (is.null(priorities))
+        priorities<-levels(x)
+    nm<-rep(NA_character_, nrow(x))
+    for(l in rev(priorities)){
+        y<-fun(as.vector(x[,l]),y)
+        nm[x %has% l]<-l
+    }
+    names(y)<-nm
+    y
+}
+
+ms_recode<-function(x, ...){
+    new<-list(...)
+    newlevs<-names(new)
+    deadlevs<-unlist(new)
+    levs<-levels(x)
+    if(!all(deadlevs %in% levs)){
+        stop(paste("non-existent levels",deadlevs[!(deadlevs %in% levs)]))
+    }
+    levs[match(deadlevs,levs)]<-newlevs
+    levels(x)<-levs
+    x
+}
+
+
+
 
 stack.ms<-function(x,...,na.rm=FALSE){
   levels<-levels(x)

@@ -1,9 +1,9 @@
 import(stats,graphics)
 export( "%has%", "%hasonly%", as.mr,  as.ms,   
- indicator,  mean0, mr_collapse, mr_count, 
+ indicator,  mean0, mr_flatten, mr_count, 
 mr_diff, mr_infreq, mr_inorder, mr_inseq, mr_intersect, mr_na, 
 mr_reorder, mr_union, ms_infreq, ms_inorder, ms_inscore, ms_inseq, mr_recode,
-ms_na, ms_reorder, mtable,  sum0)
+ms_na, ms_reorder, ms_recode, ms_flatten, mr_lump, mtable,  sum0)
 
 S3method("[",mr)
 S3method("[",ms)

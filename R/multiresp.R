@@ -62,7 +62,13 @@ as.data.frame.mr<-function(x,...){
 "[.mr"<-function(x,i,j,...){
   levels<-levels(x)
   x<-as.logical(x)[i,j,drop=FALSE]
-  new_levels<-levels[j]
+  if (!missing(j)){
+      if (is.character(j))
+          new_levels<-j
+      else
+          new_levels<-levels[j]
+  } else
+      new_levels<-levels
   class(x)<-"mr"
   levels(x)<-new_levels
   x
@@ -160,7 +166,7 @@ mr_infreq<-function(x, na.rm=TRUE){
   x
 }
 
-mr_collapse<-function(x, priorities){
+mr_flatten<-function(x, priorities){
     y<-rep(NA_character_,length(x))
     if (is.null(priorities))
         priorities<-levels(x)
@@ -183,6 +189,59 @@ mr_recode<-function(x, ...){
     x
 }
 
+mr_lump<-function(x, n, prop,  other_level = "Other",
+                     ties.method = c("min", "average", "first", "last", "random", "max")) {
+    if(!inherits(x,"mr"))
+        stop("x must be an 'mr' object")
+    ties.method <- match.arg(ties.method)
+
+    levels <- levels(x)
+  
+    count <- as.vector(mtable(x))
+    total <- length(x)
+ 
+
+  if (!xor(missing(n), missing(prop))) {
+    new_levels <- ifelse(!in_smallest(count), levels, other_level)
+  } else if (!missing(n)) {
+    if (n < 0) {
+      rank <- rank(count, ties = ties.method)
+      n <- -n
+    } else {
+      rank <- rank(-count, ties = ties.method)
+    }
+
+    if (sum(rank > n) <= 1) {
+      # No lumping needed
+      return(x)
+    }
+
+    new_levels <- ifelse(rank <= n, levels, other_level)
+  } else if (!missing(prop)) {
+    prop_n <- count / total
+    if (prop < 0) {
+      new_levels <- ifelse(prop_n <= -prop, levels, other_level)
+    } else {
+      if (sum(prop_n <= prop) <= 1) {
+        # No lumping needed
+        return(x)
+      }
+
+      new_levels <- ifelse(prop_n > prop, levels, other_level)
+    }
+  }
+
+    
+    if (other_level %in% new_levels) {
+        others<-data.frame(other=apply(x[,new_levels==other_level],1,any))
+        names(others)<-other_level
+        others<-as.mr(others)
+        kept<-x[,new_levels!=other_level]
+        rval <- mr_union(kept,others)
+    } else {
+        x
+    }
+}
 
 stack.mr<-function(x,...,na.rm=FALSE){
   levels<-levels(x)

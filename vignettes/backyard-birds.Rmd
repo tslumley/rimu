@@ -77,7 +77,7 @@ bird_presence<-mr_recode(bird_presence,
   cuckoo="Coccyzus erythropthalmus")
 ```  
 
-Oops.
+Oops. 
 
 ```{r }
 bird_presence<-mr_recode(bird_presence, 
