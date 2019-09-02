@@ -176,7 +176,7 @@ mr_recode<-function(x, ...){
     deadlevs<-unlist(new)
     levs<-levels(x)
     if(!all(deadlevs %in% levs)){
-        stop(paste("non-existent levels",setdiff(levs,deadlevs)))
+        stop(paste("non-existent levels",deadlevs[!(deadlevs %in% levs)]))
     }
     levs[match(deadlevs,levs)]<-newlevs
     levels(x)<-levs

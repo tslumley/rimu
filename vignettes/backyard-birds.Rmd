@@ -58,3 +58,54 @@ And what birds tend to go together? We can draw an upset chart
 ```{r}
 plot(bird_presence,nsets=12)
 ```
+
+That's all a bit clumsy because of the long names,but you can see, for example, that the swamp sparrow and ring-necked duck tend to co-occur.  Let's recode to shorter names.
+
+```{r error=TRUE}
+bird_presence<-mr_recode(bird_presence, 
+  poorwill="Phalaenoptilus nuttallii",
+  frigatebird="Fregata magnificens",       
+  woodpecker ="Melanerpes lewis",          
+  sparrow="Melospiza georgiana",   
+  rail="Rallus limicola",      
+  redstart="Myioborus pictus",          
+  chickadee="Poecile gambeli",            
+  duck="Aythya collaris",
+  yellowhead="Xanthocephalus xanthocephalus",
+  myna="Dracula religiosa",           
+  oriole="Icterus parisorum",      
+  cuckoo="Coccyzus erythropthalmus")
+```  
+
+Oops.
+
+```{r }
+bird_presence<-mr_recode(bird_presence, 
+  poorwill="Phalaenoptilus nuttallii",
+  frigatebird="Fregata magnificens",       
+  woodpecker ="Melanerpes lewis",          
+  sparrow="Melospiza georgiana",   
+  rail="Rallus limicola",      
+  redstart="Myioborus pictus",          
+  chickadee="Poecile gambeli",            
+  duck="Aythya collaris",
+  yellowhead="Xanthocephalus xanthocephalus",
+  myna="Gracula religiosa",           
+  oriole="Icterus parisorum",      
+  cuckoo="Coccyzus erythropthalmus")
+```  
+
+Now try again:
+
+```{r}
+mtable(bird_presence)
+mtable(bird_presence,bird_presence)
+plot(bird_presence, nsets=12,nint=30)
+```
+
+The default `image` plot is of the table of the variable by itself and shows the number of co-occurences.  With `type="conditonal"`, the plot shows the proportion of each bird (on the y-axis) given that a particular bird (on the x-axis) is present. 
+
+```{r}
+image(bird_presence)
+image(bird_presence, type="conditional")
+```
