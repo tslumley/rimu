@@ -17,7 +17,7 @@ data(usethnicity)
 head(usethnicity)
 ```
 
-Question 4 asks *Are you Hispanic or Latino*, and Question 5 asks for any of  
+Question 4 asks *Are you Hispanic or Latino?*, and Question 5 asks for any of  
 
 - A. American Indian or Alaska Native, 
 - B. Asian, 
