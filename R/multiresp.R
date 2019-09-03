@@ -20,6 +20,8 @@ as.mr.list<-function(x,...,levels=NULL){
     for(i in seq_along(x)){
         m[i,]<-levs %in% x[[i]]
     }
+    colnames(m)<-levs
+    class(m)<-"mr"
     m
 }
 
@@ -189,6 +191,13 @@ mr_recode<-function(x, ...){
     x
 }
 
+mr_drop<-function(x, levels){
+    if(!all(levels %in% levels(x))){
+        stop(paste("non-existent levels:", levels[!(levels %in% levels(x))]))
+    }
+    x[,!(levels(x) %in% levels)]
+}
+
 mr_lump<-function(x, n, prop,  other_level = "Other",
                      ties.method = c("min", "average", "first", "last", "random", "max")) {
     if(!inherits(x,"mr"))
@@ -273,6 +282,19 @@ as.mr.factor<-function(x,...){
   colnames(rval)<-levels(x)
   class(rval)<-"mr"
   rval
+}
+
+
+as.mr.logical<-function(x,name,...){
+    if (!is.matrix(x)){
+        x<-as.matrix(x)
+        colnames(x)<-name
+    } else {
+        if (!missing(name))
+            colnames(x)<-name
+    }
+    class(x)<-"mr"
+    x
 }
 
 mtable<-function(x,y,na.rm=TRUE){

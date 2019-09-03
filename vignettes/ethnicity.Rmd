@@ -1,0 +1,74 @@
+---
+title: "Race/ethnicity in YRBS"
+author: "Thomas Lumley"
+date: "03/09/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The `usethnicity` data set contains variables on race and ethnic identification from the 2017 Youth Risk Behaviour Survey, together with two variables on smoking behaviour.  The YRBS is a multistage cluster-sampled survey, so valid inference about associations requires using survey design information. This subset of variables without weights is useful only for demonstration purposes. 
+
+```{r}
+library(rimu)
+data(usethnicity)
+head(usethnicity)
+```
+
+Question 4 asks *Are you Hispanic or Latino*, and Question 5 asks for any of  
+
+- A. American Indian or Alaska Native, 
+- B. Asian, 
+- C. Black or African American, 
+- D. Native Hawaiian or Other Pacific Islander, 
+- E. White
+
+that apply.  In the data set, these five letters are pasted together into a single variable.
+
+
+
+We need to split `Q5` into its component letters. One way is to use `strsplit`, producing a list with a vector of zero to five letters for each individual, then call the `as.mr` method for lists.
+
+```{r}
+race<-as.mr(strsplit(as.character(usethnicity$Q5),""))
+mtable(race)
+```
+
+There's a spurious `" "` category from the string splitting, and the values `F`, `G`, and `H` are also invalid, so we need to remove them
+
+```{r}
+race<-mr_drop(race,c(" ","F","G","H"))
+mtable(race)
+```
+
+We might want easier-to-recognise names for the categories
+
+```{r}
+race <- mr_recode(race, AmIndian="A",Asian="B", Black="C", Pacific="D", White="E")
+```
+
+Now, Hispanic/Latino ethnicity is asked in a separate question. We convert it via the `as.mr` method for logical vectors, and then combine it with `race`
+
+```{r}
+hispanic<-as.mr(usethnicity$Q4==1, "Hispanic")
+ethnicity<-mr_union(race, hispanic)
+ethnicity[101:120]
+```
+
+The `plot` method shows co-occurence of the various race/ethnicity terms
+
+```{r}
+plot(ethnicity,nsets=6)
+```
+
+Tabulations against other factor or multiple-response variables are possible with `mtable`.  Note that `mtable` shows frequencies for each category; use `as.character` to get frequencies for combinations -- do not use `as.factor`, which is not generic and so cannot have a `mr` method.
+
+```{r}
+mtable(ethnicity, usethnicity$QN30)
+table(ethnicity %has% "Black", usethnicity$QN30)
+table(ethnicity %hasonly% "Black", usethnicity$QN30)
+table(as.character(ethnicity), usethnicity$QN30)
+table(forcats::fct_lump(as.character(ethnicity), n=10),    usethnicity$QN30)
+```

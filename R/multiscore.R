@@ -136,6 +136,12 @@ ms_recode<-function(x, ...){
 }
 
 
+ms_drop<-function(x, levels){
+    if(!all(levels %in% levels(x))){
+        stop(paste("non-existent levels:", levels[!(levels %in% levels(x))]))
+    }
+    x[,!(levels(x) %in% levels)]
+}
 
 
 stack.ms<-function(x,...,na.rm=FALSE){

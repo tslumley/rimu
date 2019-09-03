@@ -109,3 +109,11 @@ The default `image` plot is of the table of the variable by itself and shows the
 image(bird_presence)
 image(bird_presence, type="conditional")
 ```
+
+These might be clearer if the birds were ordered by frequency of occurrence. Let's try:
+
+```{r}
+bird_presence<-mr_infreq(bird_presence)
+image(bird_presence)
+image(bird_presence, type="conditional")
+```
