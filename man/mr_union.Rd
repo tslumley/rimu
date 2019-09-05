@@ -19,7 +19,7 @@ mr_diff(x, y)
   \item{x,y}{Objects of class \code{mr}}
 }
 
-}
+
 
 \value{
 Object of class \code{mr}
