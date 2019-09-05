@@ -5,8 +5,10 @@
 Reorder levels of \code{mr} objects
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+ \code{mr_inorder} uses the order in which the
+levels first appear in the data (which is invariant to locale),
+\code{mr_infreq} sorts by frequency, and \code{mr_inseq} sorts
+alphabetically (for the current locale).}
 \usage{
 mr_inorder(x)
 mr_infreq(x,na.rm=TRUE)
@@ -23,18 +25,12 @@ mr_reorder(x, v, fun=median)
 \item{v,fun){Sort levels of \code{x} according to the values of
     \code{fun(v)} for observations having each level}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
 \value{
 Object of class \code{mr}
 }
 \references{
 These are based on the reordering functions for factors in the
-\code{forcats} package. \code{mr_inorder} uses the order in which the
-levels first appear in the data (which is invariant to locale),
-\code{mr_infreq} sorts by frequency, and \code{mr_inseq} sorts
-alphabetically (for the current locale).
+\code{forcats} package.
 }
 
 \examples{
