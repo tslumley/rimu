@@ -184,7 +184,8 @@ stack.ms<-function(x,...,na.rm=FALSE){
 }
 
 image.ms<-function(x,...){
-  image( t(as.logical(x)), axes=FALSE)
-  axis(3,at=seq(0,1,length=length(levs)),labels=levs)
-  invisible(x)
+    image( t(as.logical(x)), axes=FALSE)
+    levs<-levels(x)
+    axis(3,at=seq(0,1,length=length(levs)),labels=levs)
+    invisible(x)
 }

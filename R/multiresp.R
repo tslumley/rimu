@@ -226,7 +226,7 @@ mr_lump<-function(x, n, prop,  other_level = "Other",
  
 
   if (!xor(missing(n), missing(prop))) {
-    new_levels <- ifelse(!in_smallest(count), levels, other_level)
+    stop("need to specify one of 'n' and 'prop'")
   } else if (!missing(n)) {
     if (n < 0) {
       rank <- rank(count, ties = ties.method)
@@ -353,6 +353,8 @@ image.mr<-function(x,type=c("overlap","conditional","association","raw"),...){
            )
   }
 }
+
+globalVariables(c("x","y","z"))
 
 ggimage<-function(x,xlab,ylab){
     d<-data.frame(x=rep(rownames(x),ncol(x)),

@@ -2,7 +2,11 @@
 title: "Race/ethnicity in YRBS"
 author: "Thomas Lumley"
 date: "03/09/2019"
-output: html_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{YRBS-ethnicity}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}

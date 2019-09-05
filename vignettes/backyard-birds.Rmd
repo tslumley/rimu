@@ -1,8 +1,12 @@
 ---
+vignette: >
+  %\VignetteIndexEntry{backyard-birds}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 title: "Multiple responses are for the birds"
 author: "Thomas Lumley"
 date: "02/09/2019"
-output: html_document
+output: rmarkdown::html_vignette
 ---
 
 ```{r setup, include=FALSE}
@@ -103,7 +107,7 @@ mtable(bird_presence,bird_presence)
 plot(bird_presence, nsets=12,nint=30)
 ```
 
-The default `image` plot is of the table of the variable by itself and shows the number of co-occurences.  With `type="conditonal"`, the plot shows the proportion of each bird (on the y-axis) given that a particular bird (on the x-axis) is present. 
+The default `image` plot is of the table of the variable by itself and shows the number of co-occurences.  With `type="conditional"`, the plot shows the proportion of each bird (on the y-axis) given that a particular bird (on the x-axis) is present. 
 
 ```{r}
 image(bird_presence)
