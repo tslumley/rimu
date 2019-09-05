@@ -15,7 +15,7 @@ Constructs \code{mr} objects representing multiple-choice questions where more t
 \usage{
 as.mr(x, ...)
 \method{as.mr}{logical}(x,name,...)
-\method{as.mr}{list}{x,...,levels=NULL}
+\method{as.mr}{list}(x,...,levels=NULL)
 \method{as.mr}{factor}(x,...)
 \method{as.mr}{data.frame}(x,...,na.rm=TRUE)
 }
