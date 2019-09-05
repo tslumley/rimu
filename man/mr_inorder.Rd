@@ -22,7 +22,7 @@ mr_reorder(x, v, fun=median)
   }
 \item{na.rm}{Remove \code{NA} values before computing frequencies (\code{NA}
   sorts last)}
-\item{v,fun){Sort levels of \code{x} according to the values of
+\item{v,fun}{Sort levels of \code{x} according to the values of
     \code{fun(v)} for observations having each level}
 }
 \value{
