@@ -3,6 +3,7 @@
 \alias{as.ms.list}
 \alias{as.ms.matrix}
 \alias{as.ms.data.frame}
+\alias{as.ms.mr}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Construct scored or ranked multiple-response objects
@@ -12,7 +13,7 @@ The internal representation is as a numeric matrix with 0 when a level is not pr
 }
 \usage{
 as.ms(x, ...)
-\method{as.ms}{list}(x,...)
+\method{as.ms}{list}(x,...,levels=NULL)
 \method{as.ms}{data.frame}(x,...,na.rm=TRUE)
 \method{as.ms}{matrix}(x,...,na.rm=TRUE)
 \method{as.ms}{mr}(x,...)
@@ -25,6 +26,7 @@ as.ms(x, ...)
   \item{\dots}{
    for compatibility; not used.
 }
+\item{levels}{Optional character vector giving the permitted levels}
 \item{na.rm}{Convert \code{NA} values to 'not present', ie, 0}
 }
 \value{

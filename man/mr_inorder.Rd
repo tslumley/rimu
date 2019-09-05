@@ -1,5 +1,8 @@
 \name{mr_inorder}
 \alias{mr_inorder}
+\alias{mr_infreq}
+\alias{mr_inseq}
+\alias{mr_inorder}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Reorder levels of \code{mr} objects

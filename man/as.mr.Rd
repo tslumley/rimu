@@ -4,6 +4,7 @@
 \alias{as.mr.data.frame}
 \alias{as.mr.list}
 \alias{as.mr.ms}
+\alias{as.mr.factor}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Construct multiple-response objects
@@ -14,7 +15,7 @@ Constructs \code{mr} objects representing multiple-choice questions where more t
 \usage{
 as.mr(x, ...)
 \method{as.mr}{logical}(x,name,...)
-\method{as.mr}{list}{x,...}
+\method{as.mr}{list}{x,...,levels=NULL}
 \method{as.mr}{factor}(x,...)
 \method{as.mr}{data.frame}(x,...,na.rm=TRUE)
 }
@@ -26,6 +27,7 @@ as.mr(x, ...)
   \item{\dots}{
     for compatibility; not used
   }
+  \item{levels}{optional character vector of the permitted levels}
   \item{name}{level name (for a vector) or vector of level names to
     replace the column names (for a matrix)}
   \item{na.rm}{If \code{TRUE}, replace \code{NA} in the input by \code{FALSE}}
