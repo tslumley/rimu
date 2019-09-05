@@ -2,30 +2,18 @@
 \alias{ethnicity}
 \docType{data}
 \title{
-%%   ~~ data name/kind ... ~~
+Toy example using New Zealand level 1 ethnicity values. The statistical standard for collecting ethnicity data requires that respondents can mark all that are applicable.  The level 1 values are "Māori", "Pacific Peoples" (ie, Pacific Island ethnicities), "Asian", "European", and "MELAA" (Middle Eastern, Latin American, and African).
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of the dataset. ~~
+Artficial data
 }
 \usage{data("ethnicity")}
 \format{
-  The format is:
- 'mr' logi [1:6, 1:5] TRUE TRUE FALSE FALSE NA TRUE FALSE TRUE TRUE TRUE NA NA FALSE FALSE FALSE TRUE FALSE FALSE FALSE FALSE FALSE FAL| __truncated__
- - attr(*, "dimnames")=List of 2
-  ..$ : NULL
-  ..$ : chr [1:5] "European" "Māori" "Pacific" "Asian" ...
+ An object of class \code{mr}
 }
-\details{
-%%  ~~ If necessary, more details than the __description__ above ~~
-}
-\source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
-}
-\references{
-%%  ~~ possibly secondary sources and usages ~~
-}
+
 \examples{
 data(ethnicity)
-## maybe str(ethnicity) ; plot(ethnicity) ...
+ethnicity
 }
 \keyword{datasets}

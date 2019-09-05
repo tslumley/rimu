@@ -110,10 +110,22 @@ image(bird_presence)
 image(bird_presence, type="conditional")
 ```
 
-These might be clearer if the birds were ordered by frequency of occurrence. Let's try:
+
+We might want to focus on just the more commonly observed birds
 
 ```{r}
-bird_presence<-mr_infreq(bird_presence)
-image(bird_presence)
-image(bird_presence, type="conditional")
+common_birds<-mr_lump(bird_presence,n=4)
+mtable(common_birds)
+mtable(common_birds,common_birds)
+plot(common_birds)
+```
+
+Or consider just the rare and interesting ones
+
+```{r}
+rare_birds<-mr_lump(bird_presence,n=-5,other_level="Common")
+mtable(rare_birds)
+mtable(rare_birds,rare_birds)
+plot(rare_birds,nsets=6)
+plot(mr_drop(rare_birds,"Common"),nsets=5)
 ```

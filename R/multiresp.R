@@ -1,5 +1,20 @@
 
 
+fix_levels<-function(x){
+    first<-!duplicated(levels(x))
+    if (all(first))
+        return(x)
+    y<-x[,first]
+    x<-as.logical(x)
+   
+    for(lev in levels(y)){
+        is_lev<-colnames(x)==lev
+        if (sum(is_lev)>1)
+            y[,lev]<-apply(x[,is_lev],1,any)
+    }
+    y
+}
+
 as.mr.data.frame<-function(x,...,na.rm=TRUE){        
     x<-as.matrix(x)>0
     if (na.rm){
@@ -188,7 +203,7 @@ mr_recode<-function(x, ...){
     }
     levs[match(deadlevs,levs)]<-newlevs
     levels(x)<-levs
-    x
+    fix_levels(x)
 }
 
 mr_drop<-function(x, levels){
@@ -247,6 +262,7 @@ mr_lump<-function(x, n, prop,  other_level = "Other",
         others<-as.mr(others)
         kept<-x[,new_levels!=other_level]
         rval <- mr_union(kept,others)
+        rval
     } else {
         x
     }

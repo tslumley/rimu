@@ -1,11 +1,13 @@
 \name{mr_recode}
 \alias{mr_recode}
+\alias{ms_recode}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Relabel levels of multiple-response objects
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Relabel some or all of the levels of a multiple-response object.  Two
+levels that are recoded to the same value will be combined.
 }
 \usage{
 mr_recode(x, ...)
@@ -13,59 +15,23 @@ mr_recode(x, ...)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
-}
+Object of class \code{mr} or \code{ms}
+  }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
-}
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
+    new names in the form \code{new_name="old name"}. 
+  }
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
+New object of class  \code{mr} or \code{ms}
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x, ...) 
-{
-    new <- list(...)
-    newlevs <- names(new)
-    deadlevs <- unlist(new)
-    levs <- levels(x)
-    if (!all(deadlevs \%in\% levs)) {
-        stop(paste("non-existent levels", deadlevs[!(deadlevs \%in\% 
-            levs)]))
-    }
-    levs[match(deadlevs, levs)] <- newlevs
-    levels(x) <- levs
-    x
-  }
+data(nzbirds)
+nzbirds<-as.mr(nzbirds)
+nzbirds
+## recode to English names
+mr_recode(nzbirds,morepork="ruru",stilt="kaki",waxeye="tauhou")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{manip }% use one of  RShowDoc("KEYWORDS")

@@ -2,59 +2,47 @@
 \alias{mr_inorder}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Reorder levels of \code{mr} objects
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 mr_inorder(x)
+mr_infreq(x,na.rm=TRUE)
+mr_inseq(x)
+mr_reorder(x, v, fun=median)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
-}
+\code{mr} object
+  }
+\item{na.rm}{Remove \code{NA} values before computing frequencies (\code{NA}
+  sorts last)}
+\item{v,fun){Sort levels of \code{x} according to the values of
+    \code{fun(v)} for observations having each level}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Object of class \code{mr}
 }
 \references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
+These are based on the reordering functions for factors in the
+\code{forcats} package. \code{mr_inorder} uses the order in which the
+levels first appear in the data (which is invariant to locale),
+\code{mr_infreq} sorts by frequency, and \code{mr_inseq} sorts
+alphabetically (for the current locale).
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-    pos <- apply(as.logical(x), 2, function(xi) min(which(xi)))
-    x <- x[, order(pos)]
-    x
-  }
+data(ethnicity)
+mr_infreq(ethnicity)
+mr_inseq(ethnicity)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{manip }% use one of  RShowDoc("KEYWORDS")
+

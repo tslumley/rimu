@@ -2,8 +2,36 @@
 as.ms<-function(x,...) UseMethod("as.ms")
 
 
+as.ms.list<-function(x,...,levels=NULL){
+    levs<-unique(do.call(c,x))
+    if (!is.null(levels)){
+        if (any(xtra<-setdiff(levs,levels)))
+            warning(paste("values not in 'levels' ",paste(xtra,collapse=", ")))
+        levs<-levels
+    }
+    m<-matrix(0,nrow=length(x),ncol=length(levs))
+    for(i in seq_along(x)){
+        l<-match(x[[i]],levs)
+        if (any(l))
+            m[i,l]<-seq_len(length(l))
+    }
+    colnames(m)<-levs
+    class(m)<-"ms"
+    m
+}
+
 as.ms.data.frame<-function(x,...,na.rm=TRUE){        
     x<-as.matrix(x)
+    if(!is.numeric(x)) stop("must be numeric")
+    if (na.rm){
+        x[is.na(x)]<-0
+     }
+    class(x)<-"ms"
+    x
+ }
+
+as.ms.matrix<-function(x,...,na.rm=TRUE){
+    if(!is.numeric(x)) stop("must be numeric")
     if (na.rm){
         x[is.na(x)]<-0
      }

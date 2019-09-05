@@ -2,10 +2,11 @@
 \alias{mr_flatten}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Flatten a multiple-response object into a factor
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Convert a multiple-response object into a factor using a supplied ordering.  Each observation is assigned its first level in the ordering. That is, an observation that has \code{priorities[1]} as one of its levels is assigned that value. A nobservation that does not \code{priorities[1]} as one of its levels, but does have \code{priorities[2]} is assigned \code{priorities[2]}.
+
 }
 \usage{
 mr_flatten(x, priorities)
@@ -13,53 +14,26 @@ mr_flatten(x, priorities)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+\code{mr} object
 }
   \item{priorities}{
-%%     ~~Describe \code{priorities} here~~
+Character vector of levels.
 }
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A factor
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(ethnicity)
+ethnicity
 
-## The function is currently defined as
-function (x, priorities) 
-{
-    y <- rep(NA_character_, length(x))
-    if (is.null(priorities)) 
-        priorities <- levels(x)
-    for (l in rev(priorities)) {
-        y <- ifelse(x \%has\% l, l, y)
-    }
-    factor(y, levels = levels(x))
-  }
+## NZ 'prioritised ethnicity'
+eth <- mr_recode(ethnicity, `European/Other`="European", `European/Other` = "MELAA")
+mr_flatten(ethnicity, c("Māori","Pacific","Asian","European/Other"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
