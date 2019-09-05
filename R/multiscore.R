@@ -105,7 +105,7 @@ as.ms.default<-function(x,...) as.ms(as.mr(x))
 length.ms<-function(x) NROW(x)
 
 
-ms_reorder<-function(x, v, fun=median){
+ms_reorder<-function(x, v, fun){
   values<-apply(x, 2, function(xi) fun(v[xi]))
   x<-x[,order(values)]
   x
@@ -125,10 +125,9 @@ ms_infreq<-function(x){
   x
 }
 
-sum0<-function(x) -sum(x[x>0],na.rm=TRUE)
-mean0<-function(x) {x = x[x>0]; if (length(x)) mean(x) else 0}
+mean0<-function(y) {y = y[y>0]; if (length(y)) mean(y) else 0}
 
-ms_inscore<-function(x, fun=sum0){
+ms_inscore<-function(x, fun=mean0){
   freqs<-apply(x,2,fun)  
   x<-x[,order(freqs)]
   x
@@ -136,14 +135,16 @@ ms_inscore<-function(x, fun=sum0){
 
 
 
-ms_flatten<-function(x, priorities, fun){
-    fun <- get(fun,mode="function")
-    y<-rep(0,length(x))
+ms_flatten<-function(x, priorities, fun, start=0){
+    if (!is.function(fun))
+        fun <- get(fun,mode="function")
     if (is.null(priorities))
         priorities<-levels(x)
+    y<-rep(start,length=length(x))
     nm<-rep(NA_character_, nrow(x))
     for(l in rev(priorities)){
-        y<-fun(as.vector(x[,l]),y)
+        i<-!(x[,l] %in% 0)
+        y[i]<-fun(as.vector(x[,l])[i],y[i])
         nm[x %has% l]<-l
     }
     names(y)<-nm

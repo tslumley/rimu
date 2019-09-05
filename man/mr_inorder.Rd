@@ -5,18 +5,24 @@
 \alias{mr_inorder}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Reorder levels of \code{mr} objects
+Reorder levels of multiple-response objects
 }
 \description{
- \code{mr_inorder} uses the order in which the
-levels first appear in the data (which is invariant to locale),
-\code{mr_infreq} sorts by frequency, and \code{mr_inseq} sorts
-alphabetically (for the current locale).}
+ \code{mr_inorder} and \code{ms_inorder} use the order in which the
+levels first appear in the data (which is invariant to locale),\code{mr_inseq} and
+ \code{ms_inseq} sort alphabetically (for the current locale).  \code{mr_infreq} sorts by frequency, and \code{ms_inscore} applies a function to the values in each level -- one such function is \code{mean0}, which takes the mean of non-zero values.  Finally, \code{ms_reorder} and \code{mr_reorder} use some function of a second variable computed on the observations where each level is present. 
+ }
 \usage{
 mr_inorder(x)
+ms_inorder(x)
 mr_infreq(x,na.rm=TRUE)
 mr_inseq(x)
+ms_inseq(x)
+ms_infreq(x,na.rm=TRUE)
+ms_inscore(x, fun=mean0)
+mean0(y)
 mr_reorder(x, v, fun=median)
+ms_reorder(x, v, fun=median)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -40,6 +46,13 @@ These are based on the reordering functions for factors in the
 data(ethnicity)
 mr_infreq(ethnicity)
 mr_inseq(ethnicity)
+
+data(nzbirds)
+mtable(nzbirds)
+mtable(ms_inorder(nzbirds))
+mtable(ms_inseq(nzbirds))
+mtable(ms_inscore(nzbirds, mean0))
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
