@@ -3,6 +3,12 @@
 \alias{mr_infreq}
 \alias{mr_inseq}
 \alias{mr_inorder}
+\alias{mean0}
+\alias{ms_inorder}
+\alias{ms_inseq}
+\alias{ms_inscore}
+\alias{ms_reorder}
+\alias{mr_reorder}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Reorder levels of multiple-response objects
@@ -15,10 +21,10 @@ levels first appear in the data (which is invariant to locale),\code{mr_inseq} a
 \usage{
 mr_inorder(x)
 ms_inorder(x)
-mr_infreq(x,na.rm=TRUE)
 mr_inseq(x)
 ms_inseq(x)
-ms_infreq(x,na.rm=TRUE)
+mr_infreq(x,na.rm=TRUE)
+ms_infreq(x)
 ms_inscore(x, fun=mean0)
 mean0(y)
 mr_reorder(x, v, fun=median)
@@ -33,6 +39,7 @@ ms_reorder(x, v, fun=median)
   sorts last)}
 \item{v,fun}{Sort levels of \code{x} according to the values of
     \code{fun(v)} for observations having each level}
+\item{y}{numeric vector}
 }
 \value{
 Object of class \code{mr}
