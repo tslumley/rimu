@@ -2,10 +2,10 @@
 \alias{mr_lump}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Collapse the least-common or most-common levels of a multiple response object
+Collapse common or rare levels
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Combine the least common or most common levels of a \code{mr} object into an "other" level.
 }
 \usage{
 mr_lump(x, n, prop, other_level = "Other",

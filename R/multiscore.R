@@ -1,6 +1,7 @@
 
 as.ms<-function(x,...) UseMethod("as.ms")
 
+as.data.frame.ms<-function(x,...) {as.data.frame(unclass(x))}
 
 as.ms.list<-function(x,...,levels=NULL){
     levs<-unique(do.call(c,x))
@@ -74,7 +75,7 @@ ms_na<-function(x){
   y
 }
     
-as.character.ms<-function(x){
+as.character.ms<-function(x,...){
   levels<-levels(x)
   y<-as.character(unclass(x))
   x[unclass(x)==0]<-"."
@@ -105,7 +106,7 @@ as.ms.default<-function(x,...) as.ms(as.mr(x))
 length.ms<-function(x) NROW(x)
 
 
-ms_reorder<-function(x, v, fun){
+ms_reorder<-function(x, v, fun=median){
   values<-apply(x, 2, function(xi) fun(v[xi]))
   x<-x[,order(values)]
   x

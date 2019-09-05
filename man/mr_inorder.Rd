@@ -6,6 +6,7 @@
 \alias{mean0}
 \alias{ms_inorder}
 \alias{ms_inseq}
+\alias{ms_infreq}
 \alias{ms_inscore}
 \alias{ms_reorder}
 \alias{mr_reorder}

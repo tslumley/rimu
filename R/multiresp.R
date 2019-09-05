@@ -59,7 +59,7 @@ mr_na<-function(x, na=TRUE){
   y
 }
     
-as.character.mr<-function(x,sep="+",na.rm=TRUE){
+as.character.mr<-function(x,sep="+",na.rm=TRUE,...){
   levels<-levels(x)
   if (na.rm) {
     x<-unclass(mr_na(x, na=FALSE))
@@ -278,15 +278,10 @@ stack.mr<-function(x,...,na.rm=FALSE){
   data.frame(values=factor(values,levels=levels),id)
 }
 
-indicator<-function(x, ...){
-  xx<-1L*unclass(x)
-  xx
-}
-
 
 as.mr<-function(x,...) UseMethod("as.mr",x)
 as.mr.mr<-function(x,...) x
-as.mr.default<-function(x,levels=unique(x)){
+as.mr.default<-function(x,levels=unique(x),...){
   rval<-outer(x,levels,"==")
   colnames(rval)<-levels
   class(rval)<-"mr"
