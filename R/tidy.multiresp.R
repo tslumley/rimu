@@ -23,16 +23,16 @@ as.td.list <- function(x,...,levels=NULL) {
       warning(paste("values not in 'levels' ",paste(xtra,collapse=", ")))
     levs <- vec_c(levels)
   }
-  m<-as.data.frame(matrix(FALSE,nrow=length(x),ncol=length(levs)))
+  df<-as.data.frame(matrix(FALSE,nrow=length(x),ncol=length(levs)))
   for(i in seq_along(x)){
-    m[i,]<-levs %in% x[[i]]
+    df[i,]<-levs %in% x[[i]]
   }
-  for(i in length(m)) {
-    m[,i] <- vec_c(m[,i])
+  for(i in length(df)) {
+    df[,i] <- vec_c(df[,i])
   }
-  colnames(m)<-levs
-  #class(m)<-"td"
-  m
+  colnames(df)<-levs
+  class(df)<-"td"
+  df
 }
 
 as.td.data.frame<-function(x,...,na.rm=TRUE){
@@ -40,9 +40,26 @@ as.td.data.frame<-function(x,...,na.rm=TRUE){
   if (na.rm){
     x[is.na(x)]<-FALSE
   }
+  for(i in length(x)) {
+    x[,i] <- vec_c(x[,i])
+  }
   class(x)<-"td"
   x
 }
 
+as.td.logical<-function(x,name,...){
+  if (!is.data.frame(x)){
+    x<-as.data.frame(unclass(x))
+    colnames(x)<-name
+  } else {
+    if (!missing(name))
+      colnames(x)<-name
+  }
+  for(i in length(x)) {
+    x[,i] <- vec_c(x[,i])
+  }
+  class(x)<-"td"
+  x
+}
 
 
