@@ -3,17 +3,14 @@ library(tidyverse)
 library(vctrs)
 
 # as.td method
-
 as.td<-function(x,...) UseMethod("as.td",x)
 
 
 # as.td.td
-
 as.td.td<-function(x,...) x
 
 
 #as.td.list function
-
 as.td.list <- function(x, levels=NULL, name = NULL) {
   levs <- vec_c(unique(do.call(c,x)))
   if (!is.null(levels)) {
@@ -40,7 +37,6 @@ as.td.list <- function(x, levels=NULL, name = NULL) {
 
 
 #as.td.logical function
-
 as.td.logical <- function(x, ..., name = NULL) {
   if (sum(is.na(x))>0){
   x <- replace_na(x, FALSE)
@@ -54,23 +50,22 @@ as.td.logical <- function(x, ..., name = NULL) {
       colnames(x) <- name
   }
   v <- c()
-for (i in 1:dim(x)[1]){
-v <- vec_c(v,paste(rep(colnames(x),matrix(as.numeric(x), ncol = dim(x)[2], nrow(x)[1])[i,]), collapse = "+"))
-}
+  for (i in 1:dim(x)[1]){
+    v <- vec_c(v,paste(rep(colnames(x),matrix(as.numeric(x), ncol = dim(x)[2], nrow(x)[1])[i,]), collapse = "+"))
+  }
   class(v) <- "td"
   v
 }
 
 
 #as.td.data.frame function
-
 as.td.data.frame<-function(x,...,na.rm=TRUE){
-  x <- as.matrix(x > 0)
+  m <- as.matrix(x > 0)
   if (na.rm){
-    x[is.na(x)]<-FALSE
+    m[is.na(m)]<-FALSE
   }
-  x <- as.td.logical(x)
-  x
+  v <- as.td.logical(m)
+  v
 }
 
 
