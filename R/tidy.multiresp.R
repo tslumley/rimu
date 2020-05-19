@@ -4,51 +4,20 @@ library(vctrs)
 library(varhandle)
 
 # as.td method
-as.td<-function(x,...) UseMethod("as.td",x)
+as.td <- function(x,...) UseMethod("as.td",x)
 
 # as.td.td
-as.td.td<-function(x,...) x
+as.td.td <- function(x,...) x
 
-#as.td.list function
-as.td.list <- function(x, levels=NULL, name = NULL) {
-  levs <- vec_c(unique(do.call(c,x)))
-  if (!is.null(levels)) {
-    if (any(xtra <- setdiff(levs,levels)))
-      warning(paste("values not in 'levels' ",paste(xtra,collapse=", ")))
-    levs <- vec_c(levels)
-  }
-  df<-as.data.frame(matrix(FALSE,nrow=length(x),ncol=length(levs)))
-  for(i in seq_along(x)){
-    df[i,]<-levs %in% x[[i]]
-  }
-  for(i in length(df)) {
-    df[,i] <- vec_c(df[,i])
-  }
-  colnames(df)<-levs
-  df <- as.matrix(df)
-  if (!is.null(name)){
-    df <- as.td.logical(df, name = name)
-  }
-  else {
-    df <- as.td.logical(df, name = colnames(df))
-  }
-  df
-}
-
-
-#as.td.default ???
-
-#?????????
-as.td.factor<-function(){
-  as.mr.factor(x)
-}
-
-
-as.td <-function(x, ..., name = NULL){
-  x <- unclass(as.mr(x, name = name))
+as.td.default <- function(x, ..., name = NULL, na.rm = TRUE){
+  x <- unclass(as.mr(x, name = name, na.rm = na.rm))
   for (i in 1:length(x)) {
   vec_assert(x[i],logical())
   }
+  if (!na.rm){
+    na.vals<-which(is.na(x), arr.ind = TRUE)
+    x <- replace_na(x, TRUE)
+  } 
   if (sum(is.na(x))>0){
     x <- replace_na(x, FALSE)
   }
@@ -63,8 +32,20 @@ as.td <-function(x, ..., name = NULL){
   }
   v <- c()
   for (i in 1:dim(x)[1]){
+    if (i %in% na.vals[1,]){
+      na.names <- colnames(x)
+      na.names[unname(na.vals[which(na.vals[1]==i),][2])] <- paste0("?",colnames(x)[unname(na.vals[which(na.vals[1]==i),][2])])
+      v <- vec_c(v,paste(rep(na.names,matrix(as.numeric(x), ncol = dim(x)[2], nrow(x)[1])[i,]), collapse = "+"))
+    }
+    else{
     v <- vec_c(v,paste(rep(colnames(x),matrix(as.numeric(x), ncol = dim(x)[2], nrow(x)[1])[i,]), collapse = "+"))
+    }
   }
   new_vctr(v, class = "td")
 }
 
+### examples
+
+as.td.default(strsplit(as.character(usethnicity$Q5),""))
+as.td.default(usethnicity$Q4==1, name ="Hispanic")
+as.td(nzbirds>0, name = colnames(nzbirds), na.rm = FALSE)
