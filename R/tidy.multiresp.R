@@ -46,3 +46,23 @@ as.td.default <- function(x, ..., levels = NULL, na.rm = TRUE){
   }
   new_vctr(v, class = "td")
 }
+
+
+tdtable <- function(x, y, na.rm = TRUE) {
+  x <- as.logical.td(x)
+  y <- as.logical.td(y)
+  mtable(x,y, na.rm = na.rm)
+}
+
+as.logical.td <- function(x,..., na.rm = TRUE) {
+  x <- strsplit(unclass(as.td(x, na.rm = na.rm)), "+", fixed = TRUE)
+  x_all <- unlist(x)
+  x_unique <- unique(x_all)
+  x_tf_matrix <- matrix(FALSE, ncol = length(x_unique), nrow = length(x))
+  colnames(x_tf_matrix) <- x_unique
+  for (i in 1:length(x)) {
+    x_tf_matrix[i,match(unlist(x[i]), x_unique)] <- TRUE
+  }
+  x_tf_matrix
+}
+
