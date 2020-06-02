@@ -9,11 +9,12 @@ as.td <- function(x,...) UseMethod("as.td",x)
 # as.td.td
 as.td.td <- function(x,...) x
 
-as.td.default <- function(x, ..., name = NULL, na.rm = TRUE){
-  x <- unclass(as.mr(x, name = name, na.rm = na.rm))
+as.td.default <- function(x, ..., levels = NULL, na.rm = TRUE){
+  x <- unclass(as.mr(x, levels = levels, na.rm = na.rm))
   for (i in 1:length(x)) {
   vec_assert(x[i],logical())
   }
+  na.vals<-c()
   if (!na.rm){
     na.vals<-which(is.na(x), arr.ind = TRUE)
     x <- replace_na(x, TRUE)
@@ -23,18 +24,20 @@ as.td.default <- function(x, ..., name = NULL, na.rm = TRUE){
   }
   if (!is.matrix(x)){
     x <- as.matrix(x)
-    colnames(x) <- name
+    if (ncol(x)==length(levels)){
+    colnames(x) <- levels
+    }
   }
   else{
-    if (!is.null(name)){
-      colnames(x) <- name
+    if (!is.null(levels) & ncol(x)==length(levels)){
+      colnames(x) <- levels
     }
   }
   v <- c()
   for (i in 1:dim(x)[1]){
-    if (i %in% na.vals[1,]){
+    if (i %in% na.vals[,1]){
       na.names <- colnames(x)
-      na.names[unname(na.vals[which(na.vals[1]==i),][2])] <- paste0("?",colnames(x)[unname(na.vals[which(na.vals[1]==i),][2])])
+      na.names[unname(matrix(na.vals[which(na.vals[,1]==i),], ncol = 2)[,2])] <- paste0("?",na.names[unname(matrix(na.vals[which(na.vals[,1]==i),], ncol = 2)[,2])])
       v <- vec_c(v,paste(rep(na.names,matrix(as.numeric(x), ncol = dim(x)[2], nrow(x)[1])[i,]), collapse = "+"))
     }
     else{
@@ -43,9 +46,3 @@ as.td.default <- function(x, ..., name = NULL, na.rm = TRUE){
   }
   new_vctr(v, class = "td")
 }
-
-### examples
-
-as.td.default(strsplit(as.character(usethnicity$Q5),""))
-as.td.default(usethnicity$Q4==1, name ="Hispanic")
-as.td(nzbirds>0, name = colnames(nzbirds), na.rm = FALSE)
