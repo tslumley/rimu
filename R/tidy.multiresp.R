@@ -50,7 +50,9 @@ as.td.default <- function(x, ..., levels = NULL, na.rm = TRUE){
 
 tdtable <- function(x, y, na.rm = TRUE) {
   x <- as.logical.td(x)
+  if (!missing(y)){
   y <- as.logical.td(y)
+  }
   mtable(x,y, na.rm = na.rm)
 }
 
@@ -65,4 +67,3 @@ as.logical.td <- function(x,..., na.rm = TRUE) {
   }
   x_tf_matrix
 }
-
