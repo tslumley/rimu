@@ -9,57 +9,22 @@ as.td <- function(x,...) UseMethod("as.td",x)
 # as.td.td
 as.td.td <- function(x,...) x
 
-as.td.default <- function(x, ..., levels = NULL, na.rm = TRUE){
-  x <- unclass(as.mr(x, levels = levels, na.rm = na.rm))
-  for (i in 1:length(x)) {
-  vec_assert(x[i],logical())
-  }
-  na.vals<-c()
-  if (!na.rm){
-    na.vals<-which(is.na(x), arr.ind = TRUE)
-    x <- replace_na(x, TRUE)
-  } 
-  if (sum(is.na(x))>0){
-    x <- replace_na(x, FALSE)
-  }
-  if (!is.matrix(x)){
-    x <- as.matrix(x)
-    if (ncol(x)==length(levels)){
-    colnames(x) <- levels
-    }
-  }
-  else{
-    if (!is.null(levels) & ncol(x)==length(levels)){
-      colnames(x) <- levels
-    }
-  }
-  v <- c()
-  for (i in 1:dim(x)[1]){
-    if (i %in% na.vals[,1]){
-      na.names <- colnames(x)
-      na.names[unname(matrix(na.vals[which(na.vals[,1]==i),], ncol = 2)[,2])] <- paste0("?",na.names[unname(matrix(na.vals[which(na.vals[,1]==i),], ncol = 2)[,2])])
-      v <- vec_c(v,paste(rep(na.names,matrix(as.numeric(x), ncol = dim(x)[2], nrow(x)[1])[i,]), collapse = "+"))
-    }
-    else{
-    v <- vec_c(v,paste(rep(colnames(x),matrix(as.numeric(x), ncol = dim(x)[2], nrow(x)[1])[i,]), collapse = "+"))
-    }
-  }
-  new_vctr(v, class = "td")
+as.td.default <- function(x, ...,levels = NULL, na.rm = TRUE){
+  x <- as.character.mr(as.mr(x, levels = levels, na.rm = na.rm), na.rm = na.rm)
+  new_vctr(x, class = "td")
 }
 
-
-tdtable <- function(x, y, na.rm = TRUE) {
-  x <- as.logical.td(x)
-  if (!missing(y)){
-  y <- as.logical.td(y)
-  }
-  mtable(x,y, na.rm = na.rm)
-}
-
-as.logical.td <- function(x,..., na.rm = TRUE) {
+as.logical.td <- function(x, names = NULL, ..., na.rm = TRUE) {
   x <- strsplit(unclass(as.td(x, na.rm = na.rm)), "+", fixed = TRUE)
   x_all <- unlist(x)
   x_unique <- unique(x_all)
+  if (na.rm == TRUE & "?" %in% substring(x_unique, 1, 1)) {
+    ind <- which(substring(x_unique, 1, 1)=="?")
+    x_unique <- x_unique[-c(ind)]
+  }
+  if (!is.null(names) & !identical(x_unique,names)) {
+    x_unique <- names
+  }
   x_tf_matrix <- matrix(FALSE, ncol = length(x_unique), nrow = length(x))
   colnames(x_tf_matrix) <- x_unique
   for (i in 1:length(x)) {
@@ -67,3 +32,80 @@ as.logical.td <- function(x,..., na.rm = TRUE) {
   }
   x_tf_matrix
 }
+
+tdtable <- function(x, y, na.rm = TRUE) {
+  x <- as.logical.td(x)
+  if (!missing(y)){
+    y <- as.logical.td(y)
+  }
+  mtable(x,y, na.rm = na.rm)
+}
+
+
+fix_levels.td<-function(x, name = NULL){
+  x <- as.logical.td(x, name = name)
+  first<-!duplicated(colnames(x))
+  if (all(first))
+    return(x)
+  y<-x[,first]
+  x<-as.logical.td(x)
+  
+  for(lev in levels(y)){
+    is_lev<-colnames(x)==lev
+    if (sum(is_lev)>1)
+      y[,lev]<-apply(x[,is_lev],1,any)
+  }
+  y
+}
+
+
+td_recode <- function(x, ...){
+  new <- list(...)
+  newnames <- names(new)
+  deadlevs <- unlist(new)
+  x <- as.logical.td(x)
+  levs <- colnames(x)
+  if(!all(deadlevs %in% levs)){
+    stop(paste("non-existent levels",deadlevs[!(deadlevs %in% levs)]))
+  }
+  levs[match(deadlevs,levs)]<-newnames
+  colnames(x)<-levs
+  fix_levels(x)
+  as.td(x)
+}
+
+as.character.td <- function(x,sep="+",na.rm=TRUE,...){
+  as.character.mr(as.mr(as.logical.td(x)),sep=sep,na.rm=na.rm,...)
+}
+
+as.data.frame.td <- function(x,...){
+  as.data.frame.mr(as.mr(as.logical.td(x)))
+}
+
+print.td <- function(x, ..., na.rm=FALSE,sep="+"){
+  print.mr(x, ..., na.rm=FALSE, sep="+")
+}
+
+td_count <- function(x,na.rm=TRUE) {
+  x <- as.logical.td(x)
+  rowSums(x,na.rm=na.rm)
+}
+
+td_drop <- function(x, levels, name = NULL){
+  x <- as.logical.td(x, name = name)
+  if(!all(levels %in% colnames(x))){
+    stop(paste("non-existent levels:", levels[!(levels %in% levels(x))]))
+  }
+  x[,!(colnames(x) %in% levels)]
+}
+
+levels.td <-function(x,...) {
+  colnames(as.logical.td(x))
+}
+
+"levels<-.td"<-function(x, value) {
+  x <- as.logical.td(x)
+  colnames(x)<-value
+  as.td(x)
+}
+
