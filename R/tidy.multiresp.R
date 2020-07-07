@@ -10,7 +10,7 @@ as.td <- function(x,...) UseMethod("as.td",x)
 as.td.td <- function(x,...) x
 
 as.td.default <- function(x, ...,levels = NULL, na.rm = TRUE){
-  x <- as.character.mr(as.mr(x, levels = levels, na.rm = na.rm), na.rm = na.rm)
+  x <- as.character(as.mr(x, levels = levels, na.rm = na.rm), na.rm = na.rm)
   new_vctr(x, class = "td")
 }
 
@@ -83,7 +83,8 @@ as.data.frame.td <- function(x,...){
 }
 
 print.td <- function(x, ..., na.rm=FALSE,sep="+"){
-  print.mr(x, ..., na.rm=FALSE, sep="+")
+  x<-as.character(x, ..., na.rm=FALSE)
+  print(x)
 }
 
 td_count <- function(x,na.rm=TRUE) {
