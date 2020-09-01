@@ -1,5 +1,7 @@
 \name{as.td}
 \alias{as.td}
+\alias{as.td.td}
+
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Construct tidy multiple-response objects

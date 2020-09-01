@@ -1,22 +1,19 @@
 
-
-# as.td method
 as.td <- function(x,...) UseMethod("as.td",x)
 
-# as.td.td
 as.td.td <- function(x,...) x
 
-as.td.default <- function(x, ...,levels = colnames(x), na.rm = FALSE){
+as.td.default <- function(x, ...,levels = colnames(x), na.rm = TRUE){
   x <- as.character(as.mr(x, levels = levels, na.rm = na.rm, name = levels), na.rm = na.rm)
   new_vctr(x, class = "td")
 }
 
 as.mr.td <-function(x,name = levels(x)){
-  y<-as.logical.td(x)
+  y<-as.logical.td(x, name = name)
   as.mr.logical(y)
 }
 
-as.logical.td <- function(x, names = NULL, ..., na.rm = FALSE) {
+as.logical.td <- function(x, levels = NULL, ..., na.rm = FALSE) {
   x <- strsplit(unclass(as.td(x, na.rm = na.rm)), "+", fixed = TRUE)
   x_all <- unlist(x)
   x_unique <- unique(x_all)
@@ -24,8 +21,8 @@ as.logical.td <- function(x, names = NULL, ..., na.rm = FALSE) {
     ind <- which(substring(x_unique, 1, 1)=="?")
     x_unique <- x_unique[-c(ind)]
   }
-  if (!is.null(names) & !identical(x_unique,names)) {
-    x_unique <- names
+  if (!is.null(levels) & !identical(x_unique,levels)) {
+    x_unique <- levels
   }
   x_tf_matrix <- matrix(FALSE, ncol = length(x_unique), nrow = length(x))
   colnames(x_tf_matrix) <- x_unique
@@ -35,7 +32,7 @@ as.logical.td <- function(x, names = NULL, ..., na.rm = FALSE) {
   x_tf_matrix
 }
 
-tdtable <- function(x, y, na.rm = FALSE) {
+tdtable <- function(x, y, na.rm = TRUE) {
   x <- as.logical.td(x)
   if (!missing(y)){
     y <- as.logical.td(y)
@@ -93,7 +90,7 @@ print.td <- function(x, ..., na.rm=FALSE,sep="+"){
   print(x)
 }
 
-td_count <- function(x,na.rm=FALSE) {
+td_count <- function(x,na.rm=TRUE) {
   x <- as.logical.td(x)
   rowSums(x,na.rm=na.rm)
 }
@@ -257,6 +254,32 @@ plot.td<-function(x,...){
   UpSetR::upset(as.data.frame(x),...)
 }
 
-plot.mr<-function(x,...){
-  UpSetR::upset(as.data.frame(x),...)
+image.td<-function(x,type=c("overlap","conditional","association","raw"),...){
+  x<-as.mr(x)
+  type<-match.arg(type)
+  levs<-levels(x)
+  if (type=="raw"){
+    image( t(as.logical(x)), axes=FALSE)
+    axis(3,at=seq(0,1,length=length(levs)),labels=levs)
+    invisible(x)
+  } else{
+    m<-mtable(x,x)
+    switch(type,
+           overlap=ggimage(m,"",""),
+           conditional=ggimage(m/diag(m),"Given","Proportion present"),
+           association=ggimage(cov2cor(m),"","")
+    )
+  }
+}
+
+globalVariables(c("x","y","z"))
+
+ggimage<-function(x,xlab,ylab){
+  x<-as.mr(x)
+  d<-data.frame(x=rep(rownames(x),ncol(x)),
+                y=rep(colnames(x),each=nrow(x)),
+                z=as.vector(x))
+  ggplot(d, aes(x=x,y=y,fill=z))+
+    geom_raster()+xlab(xlab)+ylab(ylab)+
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 }

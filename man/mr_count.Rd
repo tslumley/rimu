@@ -9,7 +9,7 @@
 Utility functions for multiple-response objects
 }
 \description{
-These perform divers useful tasks.  \code{mr_count} counts the number of levels present for each individual. \code{mr_na} sets \code{NA} values to something else, \code{ms_na} sets them to 0 (ie, not present). \code{mr_drop} drops some levels from the object. 
+These perform diverse useful tasks.  \code{mr_count} counts the number of levels present for each individual. \code{mr_na} sets \code{NA} values to something else, \code{ms_na} sets them to 0 (ie, not present). \code{mr_drop} drops some levels from the object. 
 }
 \usage{
 mr_count(x, na.rm = TRUE)

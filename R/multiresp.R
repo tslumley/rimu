@@ -179,8 +179,8 @@ mr_inorder<-function(x){
 mr_infreq<-function(x, na.rm=TRUE){
   y<-mr_na(x, na=!na.rm)
   freqs<-colSums(x)  
-  x<-x[,order(-freqs)]
-  x
+  y<-y[,order(-freqs)]
+  y
 }
 
 mr_flatten<-function(x, priorities){
