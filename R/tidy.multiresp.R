@@ -274,7 +274,7 @@ image.td<-function(x,type=c("overlap","conditional","association","raw"),...){
 
 globalVariables(c("x","y","z"))
 
-td_ggimage<-function(x,xlab,ylab){
+ggimage<-function(x,xlab,ylab){
   x<-as.mr(x)
   d<-data.frame(x=rep(rownames(x),ncol(x)),
                 y=rep(colnames(x),each=nrow(x)),
