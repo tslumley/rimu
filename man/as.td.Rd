@@ -54,7 +54,7 @@ Annie Cohen and Thomas Lumley
 \examples{
 
 data(nzbirds)
-as.td(nzbirds>0, name = colnames(nzbirds))
+as.td(nzbirds>0)
 
 data(ethnicity)
 as.td(ethnicity, na.rm = FALSE)

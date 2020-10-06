@@ -5,6 +5,7 @@
 \alias{as.mr.list}
 \alias{as.mr.ms}
 \alias{as.mr.factor}
+\alias{as.mr.td}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Construct multiple-response objects
@@ -18,6 +19,7 @@ as.mr(x, ...)
 \method{as.mr}{list}(x,...,levels=NULL)
 \method{as.mr}{factor}(x,...)
 \method{as.mr}{data.frame}(x,...,na.rm=TRUE)
+\method{as.mr}{td}(x,name = levels(x))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -54,6 +56,8 @@ positive values as 'present'. Optionally, \code{NA} values are coded as
 \code{reshape} or \code{dplyr::spread}.
 
 The method for \code{ms} objects simply drops the score/rank information
+
+The method for \code{td} objects takes a \code{td} vector and uses the levels as column names by default.
 
 }
 \value{
