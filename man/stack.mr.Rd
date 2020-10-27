@@ -1,6 +1,7 @@
 \name{stack.mr}
 \alias{stack.mr}
 \alias{stack.ms}
+\alias{stack.td}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Pivot a multiple-response object to long form
@@ -11,6 +12,7 @@ Creates a data frame where every observation has as many rows as it has levels p
 \usage{
 \method{stack}{mr}(x, ..., na.rm = FALSE)
 \method{stack}{ms}(x, ..., na.rm = FALSE)
+\method{stack}{td}(x, ..., na.rm = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

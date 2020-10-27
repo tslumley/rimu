@@ -1,5 +1,6 @@
 \name{mr_flatten}
 \alias{mr_flatten}
+\alias{td_flatten}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Flatten a multiple-response object into a factor
@@ -10,11 +11,12 @@ Convert a multiple-response object into a factor using a supplied ordering.  Eac
 }
 \usage{
 mr_flatten(x, priorities)
+td_flatten(x, priorities)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-\code{mr} object
+\code{mr} or \code{td} object
 }
   \item{priorities}{
 Character vector of levels.

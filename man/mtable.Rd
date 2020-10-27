@@ -1,5 +1,6 @@
 \name{mtable}
 \alias{mtable}
+\alias{tdtable}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Tables involving multiple-response objects
@@ -13,10 +14,10 @@ mtable(x, y, na.rm = TRUE)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-\code{mr} object or a factor
+\code{mr} or \code{td} object or a factor
 }
   \item{y}{
-\code{mr} object or a factor
+\code{mr} or \code{td} object or a factor
 }
   \item{na.rm}{
 remove missing values?

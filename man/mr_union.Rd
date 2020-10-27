@@ -1,7 +1,10 @@
 \name{mr_union}
 \alias{mr_union}
+\alias{td_union}
 \alias{mr_intersect}
+\alias{td_intersect}
 \alias{mr_diff}
+\alias{td_diff}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Set operations on multiple-response objects
@@ -11,8 +14,11 @@ These functions take union, intersection, and difference of two multiple-respons
 }
 \usage{
 mr_union(x, y)
+td_union(x, y)
 mr_intersect(x, y)
+td_intersect(x, y)
 mr_diff(x, y)
+td_diff(x, y)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -22,7 +28,7 @@ mr_diff(x, y)
 
 
 \value{
-Object of class \code{mr}
+Object of class \code{mr} or \code{td}
 }
 
 \examples{
