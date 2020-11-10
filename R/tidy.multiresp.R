@@ -204,7 +204,7 @@ td_na<-function(x,na=TRUE, levels = NULL){
   as.td(y,levels = colnames(y),na.rm=!na)
 }
 
-td_infreq<-function(x, na.rm = FALSE){
+td_infreq<-function(x, na.rm = TRUE){
   y<-as.logical(td_na(x,na=!na.rm), na.rm = na.rm)
   freqs<-colSums(y)
   y<-y[,order(-freqs)]

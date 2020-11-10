@@ -6,7 +6,7 @@
 Flatten a multiple-response object into a factor
 }
 \description{
-Convert a multiple-response object into a factor using a supplied ordering.  Each observation is assigned its first level in the ordering. That is, an observation that has \code{priorities[1]} as one of its levels is assigned that value. A nobservation that does not \code{priorities[1]} as one of its levels, but does have \code{priorities[2]} is assigned \code{priorities[2]}.
+Convert a multiple-response object into a factor using a supplied ordering.  Each observation is assigned its first level in the ordering. That is, an observation that has \code{priorities[1]} as one of its levels is assigned that value. An observation that does not \code{priorities[1]} as one of its levels, but does have \code{priorities[2]} is assigned \code{priorities[2]}.
 
 }
 \usage{
@@ -36,6 +36,11 @@ ethnicity
 ## NZ 'prioritised ethnicity'
 eth <- mr_recode(ethnicity, `European/Other`="European", `European/Other` = "MELAA")
 mr_flatten(ethnicity, c("Māori","Pacific","Asian","European/Other"))
+
+data(nzbirds)
+logicalbirds <- as.td(nzbirds>0)
+td_flatten(logicalbirds, c("ruru", "kea"))
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

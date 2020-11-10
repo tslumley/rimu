@@ -50,6 +50,13 @@ mtable(race)
 ## How many do people identify with
 table(mr_count(race))
 
+data(nzbirds)
+logicalbirds<-as.td(nzbirds>0)
+countbirds<-td_count(logicalbirds)
+
+## How many types of birds were seen
+table(countbirds)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

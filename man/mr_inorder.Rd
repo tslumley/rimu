@@ -2,39 +2,46 @@
 \alias{mr_inorder}
 \alias{mr_infreq}
 \alias{mr_inseq}
-\alias{mr_inorder}
+\alias{mr_reorder}
 \alias{mean0}
 \alias{ms_inorder}
 \alias{ms_inseq}
 \alias{ms_infreq}
 \alias{ms_inscore}
 \alias{ms_reorder}
-\alias{mr_reorder}
+\alias{td_inorder}
+\alias{td_infreq}
+\alias{td_inseq}
+\alias{td_reorder}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Reorder levels of multiple-response objects
 }
 \description{
- \code{mr_inorder} and \code{ms_inorder} use the order in which the
-levels first appear in the data (which is invariant to locale),\code{mr_inseq} and
- \code{ms_inseq} sort alphabetically (for the current locale).  \code{mr_infreq} sorts by frequency, and \code{ms_inscore} applies a function to the values in each level -- one such function is \code{mean0}, which takes the mean of non-zero values.  Finally, \code{ms_reorder} and \code{mr_reorder} use some function of a second variable computed on the observations where each level is present. 
+ \code{mr_inorder}, \code{td_inorder}, and \code{ms_inorder} use the order in which the
+levels first appear in the data (which is invariant to locale),\code{mr_inseq}, \code{td_inseq}, and
+ \code{ms_inseq} sort alphabetically (for the current locale).  \code{mr_infreq} and \code{td_infreq} sorts by frequency, and \code{ms_inscore} applies a function to the values in each level -- one such function is \code{mean0}, which takes the mean of non-zero values.  Finally, \code{ms_reorder}, \code{td_reorder}, and \code{mr_reorder} use some function of a second variable computed on the observations where each level is present. 
  }
 \usage{
 mr_inorder(x)
 ms_inorder(x)
+td_inorder(x)
 mr_inseq(x)
 ms_inseq(x)
+td_inseq(x)
 mr_infreq(x,na.rm=TRUE)
 ms_infreq(x)
+td_infreq(x, na.rm=TRUE)
 ms_inscore(x, fun=mean0)
 mean0(y)
 mr_reorder(x, v, fun=median)
 ms_reorder(x, v, fun=median)
+td_reorder(x, v, fun=median)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-\code{mr} object
+\code{mr} or \code{td} object
   }
 \item{na.rm}{Remove \code{NA} values before computing frequencies (\code{NA}
   sorts last)}
@@ -43,7 +50,7 @@ ms_reorder(x, v, fun=median)
 \item{y}{numeric vector}
 }
 \value{
-Object of class \code{mr}
+Object of class \code{mr} or \code{td}
 }
 \references{
 These are based on the reordering functions for factors in the
@@ -61,6 +68,8 @@ mtable(ms_inorder(nzbirds))
 mtable(ms_inseq(nzbirds))
 mtable(ms_inscore(nzbirds, mean0))
 
+td_infreq(ethnicity)
+td_inseq(ethnicity)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
