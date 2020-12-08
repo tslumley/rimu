@@ -30,7 +30,7 @@ as.td(x, ..., name = NULL, na.rm = TRUE)
 %%     ~~Describe \code{x} here~~
 }
 \details{
-The representation of \code{td} objects is as a \code{tidyverse} \code{vctrs} vector with an element corresponding to each observation.
+The representation of \code{td} objects is as a \code{tidyverse vctrs} vector with an element corresponding to each observation.
 }
 \value{
 Object of class \code{td}
