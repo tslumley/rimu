@@ -46,6 +46,8 @@ nzbirds<-as.mr(nzbirds)
 mtable(nzbirds)
 mtable(mr_lump(nzbirds,2))
 mtable(mr_lump(nzbirds,-2))
+
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
