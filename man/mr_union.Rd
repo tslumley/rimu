@@ -44,6 +44,12 @@ ethnicity<-mr_union(race, hispanic)
 mtable(ethnicity)
 ethnicity[101:120]
 
+data(usethnicity)
+race<-as.td(strsplit(as.character(usethnicity$Q5),""))
+race<-td_drop(race,c(" ","F","G","H"))
+race <- td_recode(race, AmIndian="A",Asian="B", Black="C", Pacific="D", White="E")
+mtable(race)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

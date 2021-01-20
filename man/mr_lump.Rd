@@ -47,7 +47,11 @@ mtable(nzbirds)
 mtable(mr_lump(nzbirds,2))
 mtable(mr_lump(nzbirds,-2))
 
-
+data(ethnicity)
+ethnicity<-as.td(ethnicity)
+mtable(ethnicity)
+mtable(mr_lump(ethnicity),2)
+mtable(mr_lump(ethnicity),-2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

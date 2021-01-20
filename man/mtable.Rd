@@ -1,6 +1,5 @@
 \name{mtable}
 \alias{mtable}
-\alias{tdtable}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Tables involving multiple-response objects
@@ -43,6 +42,11 @@ mtable(nzbirds, nzbirds)
 v<-rep(c("A","B"),3)
 mtable(nzbirds,v)
 
+data(nzbirds)
+mtable(nzbirds>0)
+
+nzbirds<-as.td(nzbirds>0)
+mtable(nzbirds, nzbirds)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -15,7 +15,7 @@ x \%hasonly\% y
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-  \code{mr} object
+  \code{mr} or {td} object
 }
   \item{y}{
   character vector specifying a level
@@ -31,7 +31,7 @@ data(ethnicity)
 
 ethnicity
 ethnicity \%has\% "Māori"
-ethnicity \%hasonly\% "Māori"
+ethnicity \%hasonly\% "Māori??
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

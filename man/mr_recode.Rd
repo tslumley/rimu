@@ -33,7 +33,10 @@ nzbirds
 ## recode to English names
 mr_recode(nzbirds,morepork="ruru",stilt="kaki",waxeye="tauhou")
 
-data(nzbirds)
+data(usethnicity)
+race<-as.td(strsplit(as.character(usethnicity$Q5),""))
+race<-td_drop(race,c(" ","F","G","H"))
+race <- td_recode(race, AmIndian="A",Asian="B", Black="C", Pacific="D", White="E")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
