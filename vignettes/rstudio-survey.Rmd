@@ -11,17 +11,20 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
+rstudiosurvey <- read.csv("~/Work/rstudiosurvey.csv")
+save(rstudiosurvey, file = "~/Work/Rimu/rimu/data/rstudiosurvey.rda")
 ```
 
-The `rstudio` data set 
+The `rstudiosurvey` data set contains the first 100 rows of data
 
 ```{r}
 library(rimu)
 library(dplyr)
 library(vctrs)
-data(rstudio)
-head(rstudio)
+data("rstudiosurvey")
+head(rstudiosurvey)
+
+plot(as.td(strsplit(rstudiosurvey$`What applications do you use R for most? (check all that apply)`,",")))
 ```
 
 

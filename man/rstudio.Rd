@@ -1,5 +1,5 @@
-\name{rstudio}
-\alias{rstudio}
+\name{rstudiosurvey}
+\alias{rstudiosurvey}
 \docType{data}
 \title{
 %%   ~~ data name/kind ... ~~
@@ -7,7 +7,7 @@
 \description{
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
 }
-\usage{data("rstudio")}
+\usage{data("rstudiosurvey")}
 \format{
   A data frame with 1811 observations on the following 52 variables.
   \describe{
@@ -68,7 +68,7 @@
 %%  ~~ possibly secondary sources and usages ~~
 }
 \examples{
-data(rstudio)
-## maybe str(rstudio) ; plot(rstudio) ...
+data(rstudiosurvey)
+## maybe str(rstudiosurvey) ; plot(rstudiosurvey) ...
 }
 \keyword{datasets}
