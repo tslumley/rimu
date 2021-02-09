@@ -1,4 +1,4 @@
-import(stats,graphics,utils,ggplot2,vctrs,dplyr)
+import(stats,graphics,utils,ggplot2,vctrs,dplyr,rlang)
 export( "%has%", "%hasonly%", as.mr,  as.ms,  mean0, mr_flatten, mr_count, 
 mr_diff, mr_infreq, mr_inorder, mr_inseq, mr_intersect, mr_na, 
 mr_reorder, mr_union, ms_infreq, ms_inorder, ms_inscore, ms_inseq, mr_recode,
