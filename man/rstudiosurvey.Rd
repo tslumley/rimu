@@ -2,7 +2,7 @@
 \alias{rstudiosurvey}
 \docType{data}
 \title{
-%%   ~~ data name/kind ... ~~
+Subset of RStudio 2019 Community Survey
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
