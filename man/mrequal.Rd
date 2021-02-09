@@ -31,7 +31,7 @@ data(ethnicity)
 
 ethnicity
 ethnicity \%has\% "Māori"
-ethnicity \%hasonly\% "Māori??
+ethnicity \%hasonly\% "Māori"
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
