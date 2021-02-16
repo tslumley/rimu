@@ -37,7 +37,7 @@ Perhaps we are interested in understanding which R applications are used by the 
 - Clinical trials
 - Financial analysis
 
-So we can convert this column into a multiple response object using `as.td`
+We can convert this column into a multiple response object using `as.td`
 
 ```{r}
 as.td(strsplit(rstudiosurvey$`What applications do you use R for most? (check all that apply)`, ","))
