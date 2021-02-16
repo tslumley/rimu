@@ -40,7 +40,7 @@ Perhaps we are interested in understanding which R applications are used by the 
 So we can convert this column into a multiple response object using `as.td`
 
 ```{r}
-rimu::as.td(strsplit(rstudiosurvey$`What applications do you use R for most? (check all that apply)`, ","))
+as.td(strsplit(rstudiosurvey$`What applications do you use R for most? (check all that apply)`, ","))
 ```
 
 
