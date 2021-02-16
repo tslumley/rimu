@@ -23,7 +23,7 @@ data("rstudiosurvey")
 colnames(rstudiosurvey)[16:22]
 ```
 
-Perhaps we are interested in understanding which R applications are used by the R community. We might be interested in the response to "What applications do you use R for most? (check all that appply)". Notice that this question allows for multiple responses:
+Perhaps we are interested in understanding which R applications are used by the R community. We might be interested in the response to *"What applications do you use R for most? (check all that appply)"*. Notice that this question allows for multiple responses:
 
 - Statistical analysis
 - Data transformation
@@ -33,23 +33,40 @@ Perhaps we are interested in understanding which R applications are used by the 
 - Text processing
 - Genomics
 - Medicine
-- Survival analysis
+- Survey analysis
 - Clinical trials
 - Financial analysis
+- Other
 
 We can convert this column into a multiple response object using `as.td`
 
 ```{r}
-as.td(strsplit(rstudiosurvey$`What applications do you use R for most? (check all that apply)`, ","))
+apps <- as.td(strsplit(rstudiosurvey$`What applications do you use R for most? (check all that apply)`, ","))
+
+tdtable(apps)[,1:20]
 ```
 
+Yikes, this is only the first 20. There are 169 total unique entries for this question. In order to make things easier for our analysis, we can keep only entries that aren't created by the *Other* option using `td_drop`.
 
+```{r}
+apps <- td_drop(apps, colnames(tdtable(apps))[-c(1:6, 8:10, 13, 16)])
+tdtable(apps)
+```
 
+Much better.
 
+Now we can plot the co-occurrence of the responses with the `plot` method.
 
+```{r}
+plot(apps, nsets = 11)
+```
 
+The object `apps` is a `vctrs_vctr` which allows it to be integrated into tidy data tables and manipulated with dplyr functions. We can store it back into the data frame `rstudiosurvey` as a new column:
 
-
+```{r}
+rstudiosurvey %>%
+  mutate(`R applications (tidy)` = apps)
+```
 
 ## Vignette Info
 
