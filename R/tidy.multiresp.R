@@ -5,7 +5,7 @@ as.td.td <- function(x,...) x
 
 as.td.default <- function(x, ...,levels = colnames(x), na.rm = TRUE){
   x <- as.character(as.mr(x, levels = levels, na.rm = na.rm, name = levels), na.rm = na.rm)
-  new_vctr(x, class = "td")
+  vctrs::new_vctr(x, class = "td")
 }
 
 as.mr.td <-function(x,name = levels(x)){
