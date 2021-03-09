@@ -1,7 +1,7 @@
 ---
 title: "RStudio Community Survey"
 author: "Annie Cohen"
-date: "09/03/2021"
+date: "9 March 2021"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{RStudio Community Survey}
@@ -15,7 +15,7 @@ library(rimu)
 library(dplyr)
 ```
 
-The `rstudiosurvey` data set contains 1811 rows of responses from the 2019 RStudio Community Survey, where columns are the 51 questions and a column for the timestamp. A few of the questions included in the survey are
+The `rstudiosurvey` data set contains 1838 rows of responses from the 2019 RStudio Community Survey, where columns are the 51 questions and a column for the timestamp. A few of the questions included in the survey are:
 
 ```{r message = FALSE, warning = FALSE}
 data("rstudiosurvey")
@@ -37,7 +37,7 @@ Perhaps we are interested in understanding which R applications are used by the 
 - Financial analysis
 - Other
 
-We can convert this column into a multiple response object using `as.td`
+We can convert this column into a multiple response object using `as.td`:
 
 ```{r}
 apps <- as.td(strsplit(rstudiosurvey$`What applications do you use R for most? (check all that apply)`, ","))
@@ -45,67 +45,31 @@ apps <- as.td(strsplit(rstudiosurvey$`What applications do you use R for most? (
 tdtable(apps)[,1:20]
 ```
 
-Yikes, this is only the first 20. There are 169 total unique entries for this question. In order to make things easier for our analysis, we can keep only entries that aren't created by the *Other* option using `td_drop`.
+Yikes, this is only the first 20. There are 169 total unique entries for this question. In order to make things easier for our analysis, we can keep only entries that aren't created by the `Other` option using `td_drop` to specify the columns we would like to drop:
 
 ```{r}
-apps <- td_drop(apps, colnames(tdtable(apps))[-c(1:6, 8:10, 13, 16)])
-tdtable(apps)
+new_apps <- td_drop(apps, colnames(tdtable(apps))[-c(1:20)])
+tdtable(new_apps)
 ```
 
-Much better.
-
-Now we can plot the co-occurrence of the responses with the `plot` method.
-
-```{r fig.width = 7, fig.height=5}
-plot(apps, nsets = 11)
-```
-
-The object `apps` is a `vctrs_vctr` which allows it to be integrated into tidy data tables and manipulated with dplyr functions. We can store it back into the data frame `rstudiosurvey` as a new column:
+This is still a lot of . We can use `td_lump` to choose only the values that appear in at least 10% of the responses:
 
 ```{r}
-s <- rstudiosurvey %>%
-  mutate(`R applications (tidy)` = apps)
-as_tibble(s)
+common_apps <- td_lump(apps, prop=.1)
+tdtable(common_apps)
 ```
 
-## Vignette Info
+That's better. Now we can plot the co-occurrence of the responses with the `plot` method:
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r fig.width = 6, fig.height=4}
+plot(common_apps, nsets = 9)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+The object `common_apps` is a `vctrs_vctr` which allows it to be integrated into data frames and manipulated with dplyr functions. We can store it back into the data frame `rstudiosurvey` as a new column:
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+```{r}
+tidy_survey <- rstudiosurvey %>%
+  mutate(`R applications (tidy)` = common_apps)
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+head(tidy_survey$`R applications (tidy)`)
 ```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
