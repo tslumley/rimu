@@ -13,7 +13,6 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 library(rimu)
 library(dplyr)
-library(vctrs)
 ```
 
 The `rstudiosurvey` data set contains 1811 rows of responses from the 2019 RStudio Community Survey, where columns are the 51 questions and a column for the timestamp. A few of the questions included in the survey are
@@ -64,8 +63,10 @@ plot(apps, nsets = 11)
 The object `apps` is a `vctrs_vctr` which allows it to be integrated into tidy data tables and manipulated with dplyr functions. We can store it back into the data frame `rstudiosurvey` as a new column:
 
 ```{r}
-rstudiosurvey %>%
+s <- rstudiosurvey %>%
   mutate(`R applications (tidy)` = apps)
+class(s)
+as_tibble(s)
 ```
 
 ## Vignette Info
