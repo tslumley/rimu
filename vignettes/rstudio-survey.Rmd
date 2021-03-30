@@ -59,9 +59,10 @@ common_apps <- td_lump(apps, prop=.1)
 tdtable(common_apps)
 ```
 
-That's better. Now we can plot the co-occurrence of the responses with the `plot` method:
+That's better. Now we can look at the co-occurrence of the responses with `table()` and the `plot` method:
 
 ```{r fig.width = 6, fig.height=4}
+tdtable(common_apps, common_apps)
 plot(common_apps, nsets = 9)
 ```
 
