@@ -12,7 +12,7 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(rimu)
-library(dplyr)
+library(tidyr)
 ```
 
 The `rstudiosurvey` data set contains 1838 rows of responses from the 2019 RStudio Community Survey, where columns are the 51 questions and a column for the timestamp. A few of the questions included in the survey are:
@@ -74,3 +74,15 @@ tidy_survey <- rstudiosurvey %>%
 
 head(tidy_survey$`R applications (tidy)`)
 ```
+
+```{r}
+tidy_survey$`R applications (tidy)`
+
+smaller <- tidy_survey %>%
+  select(Timestamp,
+         `How likely are you to recommend R to a colleague, friend, or family member?`,
+         `How did you learn R? If you used multiple methods, please select the one you used the most.`,
+         `What do you like best about using R?`,
+         `R applications (tidy)`)
+```
+

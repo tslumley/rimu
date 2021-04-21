@@ -100,7 +100,7 @@ td_drop <- function(x, levels, name = NULL){
   if(!all(levels %in% colnames(x))){
     stop(paste("non-existent levels:", levels[!(levels %in% levels(x))]))
   }
-  x[,!(colnames(x) %in% levels)]
+  as.td(x[,!(colnames(x) %in% levels)])
 }
 
 levels.td <-function(x, na.rm=FALSE,...) {
@@ -220,15 +220,6 @@ td_flatten<-function(x,priorities){
   }
   factor(y,levels=levels(x))
 }
-
-td_drop<-function(x,levels){
-  if(!all(levels %in% levels(x))){
-    stop(paste("non-existent levels:", levels[!(levels %in% levels(x))]))
-  }
-  y <- as.logical(x)[,c(!(levels(x) %in% levels))]
-  as.td(y, levels = colnames(y))
-}
-
 
 td_lump<-function(x, n, prop, other_level = "Other",
                   ties.method = c("min", "average", "first", "last", "random", "max")) {
