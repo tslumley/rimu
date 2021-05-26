@@ -226,8 +226,9 @@ td_lump<-function(x, n, prop, other_level = "Other",
   if(!inherits(x,"td"))
     stop("x must be a 'td' object")
   x<-as.mr(as.logical(x, name = levels(x)))
-  mr_lump(x, n, prop,  other_level = other_level,
+  y<-mr_lump(x, n, prop,  other_level = other_level,
           ties.method = ties.method)
+  as.td(y)
 }
 
 stack.td<-function(x,...,na.rm=FALSE){
@@ -238,6 +239,21 @@ stack.td<-function(x,...,na.rm=FALSE){
   values<-do.call(c,lapply(seq_len(NROW(x)),function(i) levels[x[i,]]))
   id<-rep(seq_len(NROW(x)),r)
   data.frame(values=factor(values,levels=levels),id)
+}
+
+"[.td"<-function(x,i,j,...){
+  levels<-levels(x)
+  x<-as.logical(x)[i,j,drop=FALSE]
+  if (!missing(j)){
+    if (is.character(j))
+      new_levels<-j
+    else
+      new_levels<-levels[j]
+  } else
+    new_levels<-levels
+  class(x)<-"td"
+  levels(x)<-new_levels
+  x
 }
 
 plot.td<-function(x,...){

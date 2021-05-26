@@ -84,5 +84,7 @@ smaller <- tidy_survey %>%
          `How did you learn R? If you used multiple methods, please select the one you used the most.`,
          `What do you like best about using R?`,
          `R applications (tidy)`)
+
+print(smaller$`R applications (tidy)`)
 ```
 
