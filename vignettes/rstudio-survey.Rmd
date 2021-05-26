@@ -12,6 +12,7 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(rimu)
+library(dplyr)
 ```
 
 The `rstudiosurvey` data set contains 1838 rows of responses from the 2019 RStudio Community Survey, where columns are the 51 questions and a column for the timestamp. A few of the questions included in the survey are:
@@ -71,7 +72,7 @@ The object `common_apps` is a `vctrs_vctr` which allows it to be integrated into
 tidy_survey <- rstudiosurvey %>%
   mutate(`R applications (tidy)` = common_apps)
 
-head(tidy_survey$`R applications (tidy)`)
+#print(tidy_survey$`R applications (tidy)`[1:6,])
 ```
 
 ```{r}
