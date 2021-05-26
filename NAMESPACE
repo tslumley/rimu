@@ -39,7 +39,6 @@ S3method(as.ms,list)
 S3method(as.ms,matrix)
 
 S3method(as.numeric,ms)
-S3method(as.numeric,td)
 
 S3method(image,mr)
 S3method(image,ms)

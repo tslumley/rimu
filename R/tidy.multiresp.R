@@ -8,6 +8,11 @@ as.td.default <- function(x, ...,levels = colnames(x), na.rm = TRUE){
   vctrs::new_vctr(x, class = "td")
 }
 
+as.td.mr <- function(x){
+  y <- as.logical.mr(x)
+  as.td(y)
+}
+
 as.mr.td <-function(x,name = levels(x)){
   y<-as.logical.td(x, name = name)
   as.mr.logical(y)
