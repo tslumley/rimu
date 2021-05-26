@@ -76,8 +76,6 @@ head(tidy_survey$`R applications (tidy)`)
 ```
 
 ```{r}
-tidy_survey$`R applications (tidy)`
-
 smaller <- tidy_survey %>%
   select(Timestamp,
          `How likely are you to recommend R to a colleague, friend, or family member?`,
@@ -86,5 +84,7 @@ smaller <- tidy_survey %>%
          `R applications (tidy)`)
 
 print(smaller$`R applications (tidy)`)
+
+tdtable(smaller$`R applications (tidy)`, smaller$`How likely are you to recommend R to a colleague, friend, or family member?`)
 ```
 
