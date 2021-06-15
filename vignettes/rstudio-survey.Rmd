@@ -55,6 +55,7 @@ tdtable(new_apps)
 This is still a lot of . We can use `td_lump` to choose only the values that appear in at least 10% of the responses:
 
 ```{r}
+library(vctrs)
 common_apps <- td_lump(apps, prop=.1)
 tdtable(common_apps)
 ```
@@ -73,7 +74,11 @@ tidy_survey <- rstudiosurvey %>%
   mutate(`R applications (tidy)` = common_apps)
 
 print(tidy_survey$`R applications (tidy)`[1:6])
+
+ncol(tidy_survey)
 ```
+
+Looks good, but that's a lot of columns! Let's use `dplyr` to select some of the important survey questions. Because the multiple response `td` object is situated as a column within a data frame, we can use `tidyverse` functions to manipulate the data frame.
 
 ```{r}
 smaller <- tidy_survey %>%
@@ -81,8 +86,21 @@ smaller <- tidy_survey %>%
          `How likely are you to recommend R to a colleague, friend, or family member?`,
          `How did you learn R? If you used multiple methods, please select the one you used the most.`,
          `What do you like best about using R?`,
+         `How would you rate your level of experience using R?`,
          `R applications (tidy)`)
 
-tdtable(smaller$`R applications (tidy)`, smaller$`How likely are you to recommend R to a colleague, friend, or family member?`)
+glimpse(smaller)
 ```
+
+Now, let's compare R applications with the reported level of experience of the respondent.
+
+```{r}
+x <- data.frame(tdtable(smaller$`R applications (tidy)`, smaller$`How would you rate your level of experience using R?`))
+
+round(x/rowSums(x),3) %>%
+  select("Beginner","Intermediate","Expert")
+```
+
+From this, we can see that there are very few beginners who are doing financial analysis, modeling, text processing, or machine learning. Furthermore, most R users identify as intermediate. We can also see that those who use machine learning applications identify as an expert almost as often as they do an intermediate, which is not the case for other applications. Using `tdtable` to compare two different responses in the RStudio Community Survey, we can gain insight into the relationship between reported experience level and R applications used.
+
 
