@@ -72,7 +72,7 @@ The object `common_apps` is a `vctrs_vctr` which allows it to be integrated into
 tidy_survey <- rstudiosurvey %>%
   mutate(`R applications (tidy)` = common_apps)
 
-#print(tidy_survey$`R applications (tidy)`[1:6,])
+print(tidy_survey$`R applications (tidy)`[1:6])
 ```
 
 ```{r}

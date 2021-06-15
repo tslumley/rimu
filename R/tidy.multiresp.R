@@ -38,9 +38,9 @@ as.logical.td <- function(x, levels = NULL, ..., na.rm = FALSE) {
 }
 
 tdtable <- function(x, y, na.rm = TRUE) {
-  x <- as.logical.td(x)
+  x <- as.mr(x)
   if (!missing(y)){
-    y <- as.logical.td(y)
+    y <- as.mr(y)
   }
   mtable(x,y, na.rm = na.rm)
 }
@@ -256,9 +256,9 @@ stack.td<-function(x,...,na.rm=FALSE){
       new_levels<-levels[j]
   } else
     new_levels<-levels
-  class(x)<-"td"
-  levels(x)<-new_levels
-  x
+  y<-as.td(x)
+  levels(y)<-new_levels
+  y
 }
 
 plot.td<-function(x,...){
