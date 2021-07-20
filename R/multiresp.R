@@ -59,14 +59,14 @@ mr_na<-function(x, na=TRUE){
   y
 }
     
-as.character.mr<-function(x,sep="+",na.rm=TRUE,...){
+as.character.mr<-function(x,sep="^_",na.rm=TRUE,...){
   levels<-levels(x)
   if (na.rm) {
     x<-unclass(mr_na(x, na=FALSE))
     x<-lapply(seq_len(NROW(x)), function(i) levels[x[i,]])
   } else  {
     z<-unclass(mr_na(x,na=TRUE))
-    tmp<-lapply(seq_len(NROW(x)),function(i) ifelse(is.na(x[i,])[z[i,]], paste0("?",levels[z[i,]]), levels[z[i,]]))
+    tmp<-lapply(seq_len(NROW(x)),function(i) ifelse(is.na(x[i,])[z[i,]], paste0("^^",levels[z[i,]]), levels[z[i,]]))
     x<-tmp
   }
   sapply(x,paste,collapse=sep)
@@ -93,7 +93,7 @@ as.data.frame.mr<-function(x,...){
 length.mr<-function(x) NROW(x)
 
 
-print.mr <-function(x,...,na.rm=FALSE,sep="+"){
+print.mr <-function(x,...,na.rm=FALSE,sep="^_"){
   x<-as.character(x,na.rm=na.rm,sep=sep)
   print(x)
 }

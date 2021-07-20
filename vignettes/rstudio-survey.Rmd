@@ -103,5 +103,5 @@ round(x/rowSums(x),3) %>%
 From this, we can see that there are very few beginners who are doing financial analysis, modeling, text processing, or machine learning. Furthermore, most R users identify as intermediate. We can also see that those who use machine learning applications identify as an expert almost as often as they do an intermediate, which is not the case for other applications. Using `tdtable` to compare two different responses in the RStudio Community Survey, we can gain insight into the relationship between reported experience level and R applications used.
 
 ```{r}
-
+tidyr::pivot_longer(smaller$`R applications (tidy)`)
 ```

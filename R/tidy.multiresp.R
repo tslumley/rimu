@@ -3,9 +3,10 @@ as.td <- function(x,...) UseMethod("as.td",x)
 
 as.td.td <- function(x,...) x
 
-as.td.default <- function(x, ...,levels = colnames(x), na.rm = TRUE){
+as.td.default <- function(x, ...,levels = colnames(x), na.rm = FALSE){
   x <- as.character(as.mr(x, levels = levels, na.rm = na.rm, name = levels), na.rm = na.rm)
   vctrs::new_vctr(x, class = "td")
+  structure(x,levels = levels)
 }
 
 as.td.mr <- function(x){
@@ -19,11 +20,11 @@ as.mr.td <-function(x,name = levels(x)){
 }
 
 as.logical.td <- function(x, levels = NULL, ..., na.rm = FALSE) {
-  x <- strsplit(unclass(as.td(x, na.rm = na.rm)), "+", fixed = TRUE)
+  x <- strsplit(unclass(as.td(x, na.rm = na.rm)), "^_", fixed = TRUE)
   x_all <- unlist(x)
   x_unique <- unique(x_all)
-  if (na.rm == TRUE & "?" %in% substring(x_unique, 1, 1)) {
-    ind <- which(substring(x_unique, 1, 1)=="?")
+  if (na.rm == TRUE & "^^" %in% substring(x_unique, 1, 1)) {
+    ind <- which(substring(x_unique, 1, 1)=="^^")
     x_unique <- x_unique[-c(ind)]
   }
   if (!is.null(levels) & !identical(x_unique,levels)) {
@@ -82,7 +83,7 @@ as.mr.td <- function(x, na.rm=FALSE, ...){
   as.mr(as.logical.td(x, na.rm = na.rm))
 }
 
-as.character.td <- function(x,sep="+",na.rm=FALSE,...){
+as.character.td <- function(x,sep="^_",na.rm=FALSE,...){
   as.character.mr(as.mr(x,na.rm=na.rm,...))
 }
 
@@ -90,7 +91,7 @@ as.data.frame.td <- function(x,...){
   as.data.frame.mr(as.mr(as.logical.td(x)))
 }
 
-print.td <- function(x, ..., na.rm=FALSE,sep="+"){
+print.td <- function(x, ..., na.rm=FALSE,sep="^_"){
   x<-as.character.td(x, ..., na.rm=FALSE)
   print(x)
 }
