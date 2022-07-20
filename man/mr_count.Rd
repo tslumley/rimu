@@ -15,7 +15,7 @@ These perform diverse useful tasks.  \code{mr_count}  counts the number of level
 mr_count(x, na.rm = TRUE)
 mr_drop(x, levels)
 ms_drop(x, levels)
-mr_na(x,na=TRUE)
+mr_na(x, na=TRUE)
 ms_na(x)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -27,7 +27,7 @@ ms_na(x)
 Remove \code{NA} first?
 }
 \item{levels}{character vector of levels to remove}
-\item{na}{Value to set \code{NA} to}
+\item{na}{Value (\code{TRUE/FALSE}) to set \code{NA} to}
 }
 
 \value{
@@ -50,6 +50,10 @@ countbirds<-mr_count(seenbirds)
 
 ## How many types of birds were seen
 table(countbirds)
+
+data(ethnicity)
+ethnicity
+mr_na(ethnicity, FALSE)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

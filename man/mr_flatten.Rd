@@ -34,8 +34,9 @@ data(ethnicity)
 ethnicity
 
 ## NZ 'prioritised ethnicity'
-eth <- mr_recode(ethnicity, `European/Other`="European", `European/Other` = "MELAA")
-mr_flatten(ethnicity, c("Māori","Pacific","Asian","European/Other"))
+eth <- mr_na(mr_recode(ethnicity, `European/Other`="European", `European/Other` = "MELAA"), FALSE)
+mr_flatten(eth, c("Māori","Pacific","Asian","European/Other"))
+mr_flatten(eth, c("Māori","Pacific","Asian","European/Other"), sort=TRUE)
 
 
 }
