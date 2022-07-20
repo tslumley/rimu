@@ -1,3 +1,5 @@
+<img src="inst/figures/rimu.png" height="300"/>
+
 # rimu
 Responses in multiplex
 
