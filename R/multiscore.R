@@ -21,6 +21,10 @@ as.ms.list<-function(x,...,levels=NULL){
     m
 }
 
+as.ms.character<-function(x,sep=", ",...levels=NULL){
+    as.ms(strsplit(x,sep),levels=levels)
+    }
+
 as.ms.data.frame<-function(x,...,na.rm=TRUE){        
     x<-as.matrix(x)
     if(!is.numeric(x)) stop("must be numeric")

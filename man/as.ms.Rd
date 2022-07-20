@@ -9,7 +9,8 @@
 Construct scored or ranked multiple-response objects
 }
 \description{
-The internal representation is as a numeric matrix with 0 when a level is not present and the non-zero rank or score when it is present. The data.frame and matrix methods uses the numeric values of \code{x}, and by default set \code{NA} values to 'not present'.  The list method takes a list with a character vector for each observation and uses the position in the list as the rank/score.  The \code{mr} method uses a score of 1 whenever the level is present.
+The internal representation is as a numeric matrix with 0 when a level is not present and the non-zero rank or score when it is present. The data.frame and matrix methods uses the numeric values of \code{x}, and by default set \code{NA} values to 'not present'.  The list method takes a list with a character vector for each observation and uses the position in the list as the rank/score. The character method splits the string at the separators to give a list and uses the list method.
+The \code{mr} method uses a score of 1 whenever the level is present.
 }
 \usage{
 as.ms(x, ...)
@@ -17,6 +18,7 @@ as.ms(x, ...)
 \method{as.ms}{data.frame}(x,...,na.rm=TRUE)
 \method{as.ms}{matrix}(x,...,na.rm=TRUE)
 \method{as.ms}{mr}(x,...)
+\method{as.ms}{character}(x,sep=", ", ...,levels=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,6 +30,7 @@ as.ms(x, ...)
 }
 \item{levels}{Optional character vector giving the permitted levels}
 \item{na.rm}{Convert \code{NA} values to 'not present', ie, 0}
+\item{sep}{Regular expression for splitting the character string}
 }
 \value{
 Object of class \code{ms}

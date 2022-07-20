@@ -5,7 +5,6 @@
 \alias{as.mr.list}
 \alias{as.mr.ms}
 \alias{as.mr.factor}
-\alias{as.mr.td}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Construct multiple-response objects
@@ -19,7 +18,8 @@ as.mr(x, ...)
 \method{as.mr}{list}(x,...,levels=NULL)
 \method{as.mr}{factor}(x,...)
 \method{as.mr}{data.frame}(x,...,na.rm=TRUE)
-\method{as.mr}{td}(x,name = levels(x))
+\method{as.mr}{character}(x,sep=", 
+, ..., name = levels(x))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,6 +33,7 @@ as.mr(x, ...)
   \item{name}{level name (for a vector) or vector of level names to
     replace the column names (for a matrix)}
   \item{na.rm}{If \code{TRUE}, replace \code{NA} in the input by \code{FALSE}}
+\item{sep}{Regular expression for splitting the string}
 }
 \details{
 The internal representation of \code{mr} objects is as a logical matrix
@@ -44,7 +45,7 @@ name. Given a matrix, the \code{name} argument is optional and replaces
 the existing column names
 
 The method for list \code{x} takes a list of character vectors that
-represent the levels present for one observation.
+represent the levels present for one observation. The method for strings splits the string at the supplied separator and then uses the list method.
 
 The method for factor \code{x} produces an \code{mr} object with the
 factor levels as levels. Each observation will have only one value.
@@ -70,6 +71,7 @@ nzbirds_list<-list(c("kea","tui"), c("kea","ruru","kaki"), c("ruru"),
 c("tui","ruru"), c("tui","kea","ruru"), c("tauhou","kea"))
 nzbirds_list
 as.mr(nzbirds_list)
+as.mr(c("kea, tui","kea, ruru, kaki","ruru","tui, ruru"))
 
 data(nzbirds)
 nzbirds
@@ -79,6 +81,7 @@ data(ethnicity)
 ethnicity
 as.logical(ethnicity)
 as.mr(as.logical(ethnicity))
+
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
