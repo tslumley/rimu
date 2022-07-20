@@ -195,3 +195,5 @@ image.ms<-function(x,...){
     axis(3,at=seq(0,1,length=length(levs)),labels=levs)
     invisible(x)
 }
+
+as.data.frame.mr <- function(x, ...) as.data.frame.model.matrix(x, ...)

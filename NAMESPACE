@@ -11,6 +11,7 @@ S3method(as.character,ms)
 S3method(as.data.frame,mr)
 S3method(as.logical,mr)
 S3method(as.logical,ms)
+S3method(as.matrix,mr)
 
 S3method(as.mr,data.frame)
 S3method(as.mr,default)

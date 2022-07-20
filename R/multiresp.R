@@ -77,9 +77,6 @@ as.character.mr<-function(x,sep="+",na.rm=TRUE,...){
   sapply(x,paste,collapse=sep)
 }
 
-as.data.frame.mr<-function(x,...){
-  as.data.frame(unclass(x)+0)
-}
 
 "[.mr"<-function(x,i,j,...){
   levels<-levels(x)
@@ -335,9 +332,14 @@ mtable<-function(x,y,na.rm=TRUE){
   }
 }
 
+as.matrix.mr<-function(x,...){
+    m<-as.logical(x,...)
+    storage.mode(m)<-"integer"
+    m
+}
 
 plot.mr<-function(x,...){
-  UpSetR::upset(as.data.frame(x),...)
+  UpSetR::upset(as.data.frame(as.matrix(x)),...)
 }
 
 
@@ -368,3 +370,10 @@ ggimage<-function(x,xlab,ylab){
         geom_raster()+xlab(xlab)+ylab(ylab)+
         theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
     }
+
+
+## based on Surv(), to try to get data frame columns working
+length.mr <- function(x) nrow(x)
+names.mr <- function(x) rownames(x)
+format.mr <- function(x, ...) format(as.character.mr(x), ...)
+as.data.frame.mr <- function(x, ...) as.data.frame.model.matrix(x, ...)

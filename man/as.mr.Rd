@@ -18,8 +18,7 @@ as.mr(x, ...)
 \method{as.mr}{list}(x,...,levels=NULL)
 \method{as.mr}{factor}(x,...)
 \method{as.mr}{data.frame}(x,...,na.rm=TRUE)
-\method{as.mr}{character}(x,sep=", 
-, ..., name = levels(x))
+\method{as.mr}{character}(x,sep=", ", ..., name = levels(x))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
