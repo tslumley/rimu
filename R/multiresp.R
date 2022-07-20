@@ -40,6 +40,11 @@ as.mr.list<-function(x,...,levels=NULL){
     m
 }
 
+as.mr.character<-function(x, sep=", ",...,levels=NULL){
+    l<-strsplit(x,sep)
+    as.mr(l,levels=levels)
+}
+
 levels.mr<-function(x,...) colnames(x)
 
 "levels<-.mr"<-function(x, value) {
@@ -59,14 +64,14 @@ mr_na<-function(x, na=TRUE){
   y
 }
     
-as.character.mr<-function(x,sep="^_",na.rm=TRUE,...){
+as.character.mr<-function(x,sep="+",na.rm=TRUE,...){
   levels<-levels(x)
   if (na.rm) {
     x<-unclass(mr_na(x, na=FALSE))
     x<-lapply(seq_len(NROW(x)), function(i) levels[x[i,]])
   } else  {
     z<-unclass(mr_na(x,na=TRUE))
-    tmp<-lapply(seq_len(NROW(x)),function(i) ifelse(is.na(x[i,])[z[i,]], paste0("^^",levels[z[i,]]), levels[z[i,]]))
+    tmp<-lapply(seq_len(NROW(x)),function(i) ifelse(is.na(x[i,])[z[i,]], paste0("?",levels[z[i,]]), levels[z[i,]]))
     x<-tmp
   }
   sapply(x,paste,collapse=sep)
@@ -93,7 +98,7 @@ as.data.frame.mr<-function(x,...){
 length.mr<-function(x) NROW(x)
 
 
-print.mr <-function(x,...,na.rm=FALSE,sep="^_"){
+print.mr <-function(x,...,na.rm=FALSE,sep="+"){
   x<-as.character(x,na.rm=na.rm,sep=sep)
   print(x)
 }
@@ -183,14 +188,18 @@ mr_infreq<-function(x, na.rm=TRUE){
   y
 }
 
-mr_flatten<-function(x, priorities){
+mr_flatten<-function(x, priorities, sort=FALSE){
     y<-rep(NA_character_,length(x))
     if (is.null(priorities))
         priorities<-levels(x)
     for(l in rev(priorities)){
         y<-ifelse(x %has% l,l,y)
     }
-    factor(y,levels=levels(x))
+    if (sort){
+        factor(y, priorities)
+    } else {
+        factor(y,levels=levels(x))
+    }
 }
 
 mr_recode<-function(x, ...){

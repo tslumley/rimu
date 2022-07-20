@@ -69,6 +69,32 @@ Subset of RStudio 2019 Community Survey
 }
 \examples{
 data(rstudiosurvey)
-## maybe str(rstudiosurvey) ; plot(rstudiosurvey) ...
+
+
+data(rstudiosurvey)
+## Other software being used
+other_software<- as.mr(rstudiosurvey[[40]])
+mtable(other_software)
+## only those with at least 20 responses
+common<-mr_lump(other_software, n=20)
+mtable(common)
+## 'None' isn't really another package
+common<-mr_drop(common, "None")
+mtable(common)
+
+## names in order of popularity
+t<-mtable(common)
+popular<-colnames(t)[order(t,decreasing=TRUE)]
+## most popular package for each user
+cuml_users <- mr_flatten(common, popular, sort=TRUE)
+class(cuml_users)
+table(cuml_users)
+
+## two-way tables
+## people who also use Stata or Julia are less happy with R than those who don't
+happy<-factor(rstudiosurvey[[18]])
+mtable(happy, common)
+round(prop.table(mtable(happy,common),2),2)
+
 }
 \keyword{datasets}

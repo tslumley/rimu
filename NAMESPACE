@@ -1,26 +1,16 @@
-import(stats,graphics,utils,ggplot2,vctrs)
-importFrom(dplyr, mutate)
-importFrom(dplyr, select)
-importFrom(tidyr, pivot_longer)
-importFrom(dplyr, "%>%")
-export( "%has%", "%hasonly%", as.mr,  as.ms, as.td, mean0, mr_flatten, mr_count, 
+import(stats,graphics,utils)
+export( "%has%", "%hasonly%", as.mr,  as.ms, mean0, mr_flatten, mr_count, 
 mr_diff, mr_infreq, mr_inorder, mr_inseq, mr_intersect, mr_na, 
 mr_reorder, mr_union, ms_infreq, ms_inorder, ms_inscore, ms_inseq, mr_recode,
-ms_na, ms_reorder, ms_recode, ms_flatten, mr_lump, mr_drop, ms_drop, mtable, 
-td_count, tdtable, td_drop, td_recode, td_diff, td_reorder, td_na, td_inseq, 
-td_flatten, td_intersect, td_infreq, td_union, td_lump)
+ms_na, ms_reorder, ms_recode, ms_flatten, mr_lump, mr_drop, ms_drop, mtable)
 
 S3method("[",mr)
 S3method("[",ms)
-S3method("[",td)
 S3method(as.character,mr)
 S3method(as.character,ms)
-S3method(as.character,td)
 S3method(as.data.frame,mr)
-S3method(as.data.frame,td)
 S3method(as.logical,mr)
 S3method(as.logical,ms)
-S3method(as.logical,td)
 
 S3method(as.mr,data.frame)
 S3method(as.mr,default)
@@ -29,11 +19,8 @@ S3method(as.mr,list)
 S3method(as.mr,ms)
 S3method(as.mr,mr)
 S3method(as.mr,logical)
-S3method(as.mr,td)
+S3method(as.mr, character)
 
-S3method(as.td,td)
-S3method(as.td,default)
-S3method(as.td,mr)
 
 S3method(as.ms,data.frame)
 S3method(as.ms,default)
@@ -47,23 +34,18 @@ S3method(as.numeric,ms)
 S3method(image,mr)
 S3method(image,ms)
 S3method(plot,mr)
-S3method(plot,td)
+
 
 S3method(levels,mr)
 S3method(levels,ms)
-S3method(levels,td)
 S3method("levels<-",mr)
 S3method("levels<-",ms)
-S3method("levels<-",td)
 
 S3method(length,mr)
 S3method(length,ms)
-S3method(length,td)
 
 S3method(print,mr)
 S3method(print,ms)
-S3method(print,td)
 
 S3method(stack,mr)
 S3method(stack,ms)
-S3method(stack,td)

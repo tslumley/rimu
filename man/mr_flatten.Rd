@@ -10,17 +10,17 @@ Convert a multiple-response object into a factor using a supplied ordering.  Eac
 
 }
 \usage{
-mr_flatten(x, priorities)
-td_flatten(x, priorities)
+mr_flatten(x, priorities, sort=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-\code{mr} or \code{td} object
+\code{mr}  object
 }
   \item{priorities}{
 Character vector of levels.
 }
+\item{sort}{if \code{TRUE}, the levels of the output will be in the order of \code{priorities}, if \code{FALSE} they will be in the original order}
 }
 \value{
 A factor
@@ -37,9 +37,6 @@ ethnicity
 eth <- mr_recode(ethnicity, `European/Other`="European", `European/Other` = "MELAA")
 mr_flatten(ethnicity, c("Māori","Pacific","Asian","European/Other"))
 
-data(nzbirds)
-logicalbirds <- as.td(nzbirds>0)
-td_flatten(logicalbirds, c("ruru", "kea"))
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -1,12 +1,11 @@
 \name{mr_lump}
 \alias{mr_lump}
-\alias{td_lump}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Collapse common or rare levels
 }
 \description{
-Combine the least common or most common levels of a \code{mr} or \code{td} object into an "other" level.
+Combine the least common or most common levels of a \code{mr} object into an "other" level.
 }
 \usage{
 mr_lump(x, n, prop, other_level = "Other",
@@ -34,24 +33,29 @@ How to handle ties. Passed to \code{\link{rank}}
 }
 
 \value{
-An object of class \code{mr} or \code{td}
+An object of class \code{mr} 
 }
 \references{
 Based on \code{fct_lump} from the \code{forcats} package.
 }
 
 \examples{
-data(nzbirds)
-nzbirds<-as.mr(nzbirds)
-mtable(nzbirds)
-mtable(mr_lump(nzbirds,2))
-mtable(mr_lump(nzbirds,-2))
 
 data(ethnicity)
-ethnicity<-as.td(ethnicity)
 mtable(ethnicity)
 mtable(mr_lump(ethnicity),2)
 mtable(mr_lump(ethnicity),-2)
+
+data(rstudiosurvey)
+## Other software being used
+other_software<- as.mr(rstudiosurvey[[40]])
+mtable(other_software)
+## only those with at least 20 responses
+common<-mr_lump(other_software, n=20)
+mtable(common)
+## 'None' isn't really another package
+mtable(mr_drop(common,"None"))
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

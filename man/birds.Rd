@@ -27,9 +27,7 @@ Counts of observations for 12 bird species by US county and Canadian province in
   }
 }
 
-\source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
-}
+
 
 \examples{
 data(birds)
