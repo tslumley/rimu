@@ -177,16 +177,19 @@ ms_drop<-function(x, levels){
     x[,!(levels(x) %in% levels)]
 }
 
+ms_stack<-mr_stack
 
-stack.ms<-function(x,...,na.rm=FALSE){
+stack1.ms<-function(x,label,na.rm=FALSE){
   levels<-levels(x)
   x<-unclass(x)
   x[is.na(x)]<-!na.rm
   r<-rowSums(x>0)
-  values<-do.call(c,lapply(seq_len(NROW(x)),function(i) levels[x[i,]]))
+  values<-do.call(c,lapply(seq_len(NROW(x)),function(i) levels[x[i,]>0]))
   id<-rep(seq_len(NROW(x)),r)
   s<-as.numeric(t(unclass(x)))
-  data.frame(values=factor(values,levels=levels),scores=s[s>0],id)
+  rval<-data.frame(values=factor(values,levels=levels),scores=s[s>0],id)
+  names(rval)[1]<-label
+  rval
 }
 
 image.ms<-function(x,...){
@@ -196,4 +199,8 @@ image.ms<-function(x,...){
     invisible(x)
 }
 
-as.data.frame.mr <- function(x, ...) as.data.frame.model.matrix(x, ...)
+as.data.frame.ms <- function(x, ...) as.data.frame.model.matrix(x, ...)
+length.ms <- function(x) nrow(x)
+names.ms <- function(x) rownames(x)
+format.ms <- function(x, ...) format(as.character.mr(x), ...)
+as.matrix.ms<-function(x,...) unclass(x)

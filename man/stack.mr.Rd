@@ -1,6 +1,6 @@
-\name{stack.mr}
-\alias{stack.mr}
-\alias{stack.ms}
+\name{mr_stack}
+\alias{mr_stack}
+\alias{ms_stack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Pivot a multiple-response object to long form
@@ -18,7 +18,7 @@ Creates a data frame where every observation has as many rows as it has levels p
 multiple response object
 }
   \item{\dots}{
-Not used
+other multiple response objects
 }
   \item{na.rm}{
 drop \code{NA} values?
@@ -26,20 +26,24 @@ drop \code{NA} values?
 }
 
 \value{
-A data frame with columns \code{values} and \code{id}, plus a column \code{scores} if \code{x} is a  \code{ms} object
+A data frame with columns \code{values} and \code{id}, plus a column \code{scores} if \code{x} is a  \code{ms} object. When more than one object is supplied, the result is an outer join of the two indindividual results, so it contains a row for every combination of an observed value from each object.
 }
 
 \examples{
 data(ethnicity)
 ethnicity
-stack(ethnicity)
+mr_stack(ethnicity)
 
 data(nzbirds)
 nzbirds
-stack(nzbirds)
+ms_stack(nzbirds)
 
-
-
+## not actually a sensible use
+d <- mr_stack(ethnicity, nzbirds)
+head(d)
+with(d, table(ethnicity, nzbirds))
+## equivalent, but more efficient
+mtable(mr_na(ethnicity), mr_na(nzbirds))
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

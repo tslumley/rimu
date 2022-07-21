@@ -274,14 +274,32 @@ mr_lump<-function(x, n, prop,  other_level = "Other",
     }
 }
 
-stack.mr<-function(x,...,na.rm=FALSE){
+stack1.mr<-function(x,label,na.rm){
   levels<-levels(x)
   x<-unclass(x)
   x[is.na(x)]<-!na.rm
   r<-rowSums(x)
   values<-do.call(c,lapply(seq_len(NROW(x)),function(i) levels[x[i,]]))
   id<-rep(seq_len(NROW(x)),r)
-  data.frame(values=factor(values,levels=levels),id)
+  rval<-data.frame(values=factor(values,levels=levels),id)
+  names(rval)[1]<-label
+  rval
+}
+
+stack1<-function(x,label, na.rm) UseMethod("stack1")
+
+mr_stack<-function(x,..., na.rm=FALSE){
+    label<-deparse(substitute(x))
+    sx<-stack1(x,label, na.rm=na.rm)
+    
+    nms<-substitute(list(...))
+    dots<-list(...)
+    if(length(dots))  {
+        sdots<-lapply(seq_along(dots), function(i) stack1(dots[[i]], deparse(nms[[i+1]]), na.rm=na.rm))
+        for(sdot in sdots)            
+            sx<-merge(sx, sdot, by="id")
+        }
+    sx
 }
 
 

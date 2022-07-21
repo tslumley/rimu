@@ -1,14 +1,16 @@
-import(stats,graphics,utils)
+import(stats,graphics,utils, ggplot2)
 export( "%has%", "%hasonly%", as.mr,  as.ms, mean0, mr_flatten, mr_count, 
 mr_diff, mr_infreq, mr_inorder, mr_inseq, mr_intersect, mr_na, 
 mr_reorder, mr_union, ms_infreq, ms_inorder, ms_inscore, ms_inseq, mr_recode,
-ms_na, ms_reorder, ms_recode, ms_flatten, mr_lump, mr_drop, ms_drop, mtable)
+ms_na, ms_reorder, ms_recode, ms_flatten, mr_lump, mr_drop, ms_drop, mtable,
+mr_stack, ms_stack)
 
 S3method("[",mr)
 S3method("[",ms)
 S3method(as.character,mr)
 S3method(as.character,ms)
 S3method(as.data.frame,mr)
+S3method(as.data.frame,ms)
 S3method(as.logical,mr)
 S3method(as.logical,ms)
 S3method(as.matrix,mr)
@@ -47,6 +49,8 @@ S3method(length,ms)
 
 S3method(print,mr)
 S3method(print,ms)
+S3method(format, mr)
+S3method(format, ms)
 
-S3method(stack,mr)
-S3method(stack,ms)
+S3method(stack1,mr)
+S3method(stack1,ms)

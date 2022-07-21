@@ -5,7 +5,7 @@
 Subset of RStudio 2019 Community Survey
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of the dataset. ~~
+The `rstudiosurvey` data set contains 1838 rows of responses from the 2019 RStudio Community Survey, where columns are the 51 questions and a column for the timestamp. The variable names are the full questions. Multiple responses are separated by a comma and space. A few of the questions included in the survey are:
 }
 \usage{data("rstudiosurvey")}
 \format{
@@ -58,20 +58,13 @@ Subset of RStudio 2019 Community Survey
     \item{\samp{How did you hear about this survey?}}{a character vector}
   }
 }
-\details{
-%%  ~~ If necessary, more details than the __description__ above ~~
-}
+
 \source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
-}
-\references{
-%%  ~~ possibly secondary sources and usages ~~
+\url{https://github.com/rstudio/r-community-survey/tree/master/2019}
 }
 \examples{
 data(rstudiosurvey)
-
-
-data(rstudiosurvey)
+names(rstudiosurvey)[40]
 ## Other software being used
 other_software<- as.mr(rstudiosurvey[[40]])
 mtable(other_software)
@@ -81,6 +74,15 @@ mtable(common)
 ## 'None' isn't really another package
 common<-mr_drop(common, "None")
 mtable(common)
+
+## UpSet plot
+plot(common)
+
+## Excel users filled in the survey later 
+timestamp<-as.Date(rstudiosurvey[[1]],format="\%m/\%d/\%y")
+boxplot(timestamp~I(common \%has\% "Excel"))
+
+
 
 ## names in order of popularity
 t<-mtable(common)
@@ -92,9 +94,21 @@ table(cuml_users)
 
 ## two-way tables
 ## people who also use Stata or Julia are less happy with R than those who don't
+names(rstudiosurvey)[18]
 happy<-factor(rstudiosurvey[[18]])
 mtable(happy, common)
 round(prop.table(mtable(happy,common),2),2)
+
+## mr objects can be dataframe columns, or expanded to individual levels
+df<-data.frame(timestamp, happy, common)
+dim(df)
+head(df)
+df_raw<-data.frame(timestamp, happy, as.matrix(common))
+dim(df_raw)
+head(df_raw)
+
+
+
 
 }
 \keyword{datasets}

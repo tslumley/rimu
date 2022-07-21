@@ -4,7 +4,7 @@ author: "Thomas Lumley"
 date: "03/09/2019"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{YRBS-ethnicity}
+  %\VignetteIndexEntry{Race/ethnicity in YRBS}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
