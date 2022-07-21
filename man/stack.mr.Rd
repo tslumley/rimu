@@ -9,8 +9,8 @@ Pivot a multiple-response object to long form
 Creates a data frame where every observation has as many rows as it has levels present, plus an id column to specify which rows go together.
 }
 \usage{
-\method{stack}{mr}(x, ..., na.rm = FALSE)
-\method{stack}{ms}(x, ..., na.rm = FALSE)
+\method{mr_stack}{mr}(x, ..., na.rm = FALSE)
+\method{mr_stack}{ms}(x, ..., na.rm = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

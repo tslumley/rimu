@@ -4,6 +4,7 @@
 \alias{as.ms.matrix}
 \alias{as.ms.data.frame}
 \alias{as.ms.mr}
+\alias{as.ms.character}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Construct scored or ranked multiple-response objects

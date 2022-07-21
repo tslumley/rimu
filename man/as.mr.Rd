@@ -5,6 +5,7 @@
 \alias{as.mr.list}
 \alias{as.mr.ms}
 \alias{as.mr.factor}
+\alias{as.mr.character}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Construct multiple-response objects
@@ -18,7 +19,7 @@ as.mr(x, ...)
 \method{as.mr}{list}(x,...,levels=NULL)
 \method{as.mr}{factor}(x,...)
 \method{as.mr}{data.frame}(x,...,na.rm=TRUE)
-\method{as.mr}{character}(x,sep=", ", ..., name = levels(x))
+\method{as.mr}{character}(x,sep=", ", ..., levels=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

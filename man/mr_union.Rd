@@ -1,10 +1,7 @@
 \name{mr_union}
 \alias{mr_union}
-\alias{td_union}
 \alias{mr_intersect}
-\alias{td_intersect}
 \alias{mr_diff}
-\alias{td_diff}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Set operations on multiple-response objects
@@ -14,11 +11,8 @@ These functions take union, intersection, and difference of two multiple-respons
 }
 \usage{
 mr_union(x, y)
-td_union(x, y)
 mr_intersect(x, y)
-td_intersect(x, y)
 mr_diff(x, y)
-td_diff(x, y)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -34,7 +28,7 @@ Object of class \code{mr} or \code{td}
 \examples{
 
 data(usethnicity)
-race<-as.mr(strsplit(as.character(usethnicity$Q5),""))
+race<-as.mr(usethnicity$Q5,"")
 race<-mr_drop(race,c(" ","F","G","H"))
 race <- mr_recode(race, AmIndian="A",Asian="B", Black="C", Pacific="D", White="E")
 mtable(race)
@@ -44,11 +38,6 @@ ethnicity<-mr_union(race, hispanic)
 mtable(ethnicity)
 ethnicity[101:120]
 
-data(usethnicity)
-race<-as.td(strsplit(as.character(usethnicity$Q5),""))
-race<-td_drop(race,c(" ","F","G","H"))
-race <- td_recode(race, AmIndian="A",Asian="B", Black="C", Pacific="D", White="E")
-mtable(race)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

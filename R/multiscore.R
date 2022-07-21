@@ -21,7 +21,7 @@ as.ms.list<-function(x,...,levels=NULL){
     m
 }
 
-as.ms.character<-function(x,sep=", ",...levels=NULL){
+as.ms.character<-function(x,sep=", ",...,levels=NULL){
     as.ms(strsplit(x,sep),levels=levels)
     }
 
