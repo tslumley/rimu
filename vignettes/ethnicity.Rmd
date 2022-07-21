@@ -33,10 +33,10 @@ that apply.  In the data set, these five letters are pasted together into a sing
 
 
 
-We need to split `Q5` into its component letters. One way is to use `strsplit`, producing a list with a vector of zero to five letters for each individual, then call the `as.mr` method for lists.
+We need to split `Q5` into its component letters. The \code{as.mr} method for character strings does this
 
 ```{r}
-race<-as.mr(strsplit(as.character(usethnicity$Q5),""))
+race<-as.mr(usethnicity$Q5,"")
 mtable(race)
 ```
 
@@ -74,5 +74,4 @@ mtable(ethnicity, usethnicity$QN30)
 table(ethnicity %has% "Black", usethnicity$QN30)
 table(ethnicity %hasonly% "Black", usethnicity$QN30)
 table(as.character(ethnicity), usethnicity$QN30)
-table(forcats::fct_lump(as.character(ethnicity), n=10),    usethnicity$QN30)
 ```
