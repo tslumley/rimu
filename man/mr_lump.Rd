@@ -41,8 +41,8 @@ Based on \code{fct_lump} from the \code{forcats} package.
 
 data(ethnicity)
 mtable(ethnicity)
-mtable(mr_lump(ethnicity),2)
-mtable(mr_lump(ethnicity),-2)
+mtable(mr_lump(ethnicity,2))
+mtable(mr_lump(ethnicity,-2))
 
 data(rstudiosurvey)
 ## Other software being used

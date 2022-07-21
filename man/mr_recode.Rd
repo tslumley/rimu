@@ -1,7 +1,6 @@
 \name{mr_recode}
 \alias{mr_recode}
 \alias{ms_recode}
-\alias{td_recode}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Relabel levels of multiple-response objects
@@ -34,9 +33,10 @@ nzbirds
 mr_recode(nzbirds,morepork="ruru",stilt="kaki",waxeye="tauhou")
 
 data(usethnicity)
-race<-as.td(strsplit(as.character(usethnicity$Q5),""))
-race<-td_drop(race,c(" ","F","G","H"))
-race <- td_recode(race, AmIndian="A",Asian="B", Black="C", Pacific="D", White="E")
+race<-as.mr(usethnicity$Q5,"")
+race<-mr_drop(race,c(" ","F","G","H"))
+race <- mr_recode(race, AmIndian="A",Asian="B", Black="C", Pacific="D", White="E")
+mtable(race)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

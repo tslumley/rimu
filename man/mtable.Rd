@@ -13,10 +13,10 @@ mtable(x, y, na.rm = TRUE)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-\code{mr} or \code{td} object or a factor
+\code{mr}  object or a factor
 }
   \item{y}{
-\code{mr} or \code{td} object or a factor
+\code{mr}  object or a factor
 }
   \item{na.rm}{
 remove missing values?
@@ -45,10 +45,4 @@ mtable(nzbirds,v)
 data(nzbirds)
 mtable(nzbirds>0)
 
-nzbirds<-as.td(nzbirds>0)
-mtable(nzbirds, nzbirds)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

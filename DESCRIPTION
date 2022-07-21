@@ -1,7 +1,7 @@
 Package: rimu
 Title: Responses in Multiplex
 Version: 0.3
-Author: Thomas Lumley
+Author: Thomas Lumley, Annie Cohen
 Description: Tools for manipulating, exploring, and visualising  multiple-response data, including scored or ranked responses. 
 Imports: graphics, stats, UpSetR, ggplot2
 Depends: R (>= 3.5.0)
