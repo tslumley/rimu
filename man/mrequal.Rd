@@ -15,7 +15,7 @@ x \%hasonly\% y
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-  \code{mr} or \code{td} object
+  \code{mr}  object
 }
   \item{y}{
   character vector specifying a level

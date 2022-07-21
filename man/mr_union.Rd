@@ -22,7 +22,7 @@ mr_diff(x, y)
 
 
 \value{
-Object of class \code{mr} or \code{td}
+Object of class \code{mr} 
 }
 
 \examples{

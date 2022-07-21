@@ -1,6 +1,5 @@
 \name{mr_flatten}
 \alias{mr_flatten}
-\alias{td_flatten}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Flatten a multiple-response object into a factor

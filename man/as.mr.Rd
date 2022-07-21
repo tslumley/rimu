@@ -58,7 +58,6 @@ positive values as 'present'. Optionally, \code{NA} values are coded as
 
 The method for \code{ms} objects simply drops the score/rank information
 
-The method for \code{td} objects takes a \code{td} vector and uses the levels as column names by default.
 
 }
 \value{

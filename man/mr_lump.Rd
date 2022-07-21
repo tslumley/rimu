@@ -14,7 +14,7 @@ ties.method = c("min", "average", "first", "last", "random", "max"))
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-Object of class \code{mr} or \code{td}
+Object of class \code{mr}
 }
   \item{n}{
 Positive integer to keep the most common \code{n} values, negative integer to keep the least common values.

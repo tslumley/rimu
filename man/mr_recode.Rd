@@ -22,7 +22,7 @@ Object of class \code{mr} or \code{ms}
   }
 }
 \value{
-New object of class  \code{mr}, \code{ms}, or \code{td}
+New object of class  \code{mr}, \code{ms}
 }
 
 \examples{
