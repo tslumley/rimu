@@ -9,16 +9,23 @@ The `rstudiosurvey` data set contains 1838 rows of responses from the 2019 RStud
 }
 \usage{data("rstudiosurvey")}
 \format{
-  A data frame with 1811 observations on the following 52 variables.
+  A data frame with 1838 observations on the following 52 variables.
   \describe{
-    \item{\code{Timestamp}}{a character object}
+    \item{\code{Timestamp}}{a character vector}
     \item{\samp{How would you rate your level of experience using R?}}{a character vector}
+    \item{\samp{Compared with other technical topics you've learned in school and on the job, on a scale of 1 to 5, how difficult do you expect learning R to be?}}{a numeric vector}
+    \item{\samp{From what you know about R, how long do you expect that it will take for you to learn enough to use R productively?}}{a character vector}
+    \item{\samp{How do you think you would go about the process of learning R?}}{a character vector}
+    \item{\samp{Which statement most closely reflects the primary reason why you are interested in learning R?}}{a character vector}
+    \item{\samp{If you were to learn R, what would do you think you would use it for? (check all that apply)}}{a character vector}
+    \item{\samp{Which analytical tools do you use today for the functions that you might learn R for? (please check all that apply)}}{a character vector}
+    \item{\samp{What do you think is the biggest obstacle you must overcome in trying to learn R? The choices below are only suggestions; if we haven't listed your obstacle, please choose "Other" and add your obstacle in the text. }}{a character vector}
     \item{\samp{What year did you first start learning R?}}{a numeric vector}
     \item{\samp{How did you learn R? If you used multiple methods, please select the one you used the most.}}{a character vector}
     \item{\samp{Compared with other technical topics you've learned in school and on the job, on a scale of 1 to 5, how difficult has it been for you to learn R?}}{a numeric vector}
     \item{\samp{Roughly how long did it take you to achieve proficiency in R?}}{a character vector}
     \item{\samp{Which statement most closely reflects the primary reason why you learned R?}}{a character vector}
-    \item{\samp{What do you think was the biggest obstacle you had to overcome in learning R? The choices below are only suggestions; if we haven't listed your obstacle, please choose "Other" and add your obstacle in the text.}}{a character vector}
+    \item{\samp{What do you think was the biggest obstacle you had to overcome in learning R? The choices below are only suggestions; if we haven't listed your obstacle, please choose "Other" and add your obstacle in the text. }}{a character vector}
     \item{\samp{How often do you use R today, either for professional or personal projects?}}{a character vector}
     \item{\samp{What applications do you use R for most? (check all that apply)}}{a character vector}
     \item{\samp{Please rate how much you enjoy using R on a scale of 1 to 5, where 1 is you don't enjoy it at all, and 5 is that you enjoy it a great deal.}}{a numeric vector}
