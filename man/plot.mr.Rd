@@ -17,7 +17,7 @@ The plot method for \code{mr} objects is an UpSet plot, showing co-occurences of
   \item{x}{
 \code{mr} object
 }
-\item{type}{\code{"overlap"} is a plot of counts, \code{"conditional"} is of one-way proportions, \code{"association"} has rows and columns scaled to give unit diagonals. \code{"raw"} just plots \code{as.logical(x)}.}
+\item{type}{\code{"overlap"} is a plot of counts, \code{"conditional"} is of column proportions, \code{"association"} has rows and columns scaled to give unit diagonals. \code{"raw"} just plots \code{as.logical(x)}.}
   \item{\dots}{
 Not used
 }

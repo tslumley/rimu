@@ -372,7 +372,7 @@ image.mr<-function(x,type=c("overlap","conditional","association","raw"),...){
     m<-mtable(x,x)
     switch(type,
            overlap=ggimage(m,"",""),
-           conditional=ggimage(m/diag(m),"Given","Proportion present"),
+           conditional=ggimage(t(m/diag(m)),"Proportion present","Given"),
            association=ggimage(cov2cor(m),"","")
            )
   }
