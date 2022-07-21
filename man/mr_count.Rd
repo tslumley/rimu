@@ -9,7 +9,8 @@
 Utility functions for multiple-response objects
 }
 \description{
-These perform diverse useful tasks.  \code{mr_count}  counts the number of levels present for each individual. \code{mr_na} sets \code{NA} values to something else, \code{ms_na} sets them to 0 (ie, not present), \code{mr_drop} and \code{ms_drop} drops some levels from the object. 
+These perform diverse useful tasks.  \code{mr_count}  counts the number of levels present for each individual. \code{mr_na} sets \code{NA} values to something else, \code{ms_na} sets them to 0 (ie, not present),
+\code{mr_drop} and \code{ms_drop} drop some levels from the object. 
 }
 \usage{
 mr_count(x, na.rm = TRUE)
@@ -40,6 +41,9 @@ race<-as.mr(strsplit(as.character(usethnicity$Q5),""))
 mtable(race)
 race<-mr_drop(race,c(" ","F","G","H"))
 mtable(race)
+
+## to keep just specified levels use [
+mtable(race[,c("A","D")])
 
 ## How many do people identify with
 table(mr_count(race))

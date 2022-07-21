@@ -118,6 +118,18 @@ mr_count<-function(x,na.rm=TRUE) rowSums(x,na.rm=na.rm)
   (x %has% y) & (mr_count(x)==1)
 }
 
+"%hasall%"<-function(x, ys) {
+    if (length(ys)==1) return(x %has% ys)
+    
+    rowSums(sapply(ys, function(y) !(x %has% y)))==0
+}
+
+"%hasany%"<-function(x, ys) {
+    if (length(ys)==1) return(x %has% ys)
+    
+    rowSums(sapply(ys, function(y) (x %has% y)))> 0
+}
+
 
 mr_union<-function(x,y){
   x<-as.mr(x)
@@ -218,6 +230,7 @@ mr_drop<-function(x, levels){
     }
     x[,!(levels(x) %in% levels)]
 }
+
 
 mr_lump<-function(x, n, prop,  other_level = "Other",
                      ties.method = c("min", "average", "first", "last", "random", "max")) {
