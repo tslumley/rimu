@@ -294,8 +294,8 @@ stack1.mr<-function(x,label,na.rm){
   r<-rowSums(x)
   values<-do.call(c,lapply(seq_len(NROW(x)),function(i) levels[x[i,]]))
   id<-rep(seq_len(NROW(x)),r)
-  rval<-data.frame(values=factor(values,levels=levels),id)
-  names(rval)[1]<-label
+  rval<-data.frame(id,values=factor(values,levels=levels))
+  names(rval)[2]<-label
   rval
 }
 
