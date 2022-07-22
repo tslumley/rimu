@@ -187,8 +187,8 @@ stack1.ms<-function(x,label,na.rm=FALSE){
   values<-do.call(c,lapply(seq_len(NROW(x)),function(i) levels[x[i,]>0]))
   id<-rep(seq_len(NROW(x)),r)
   s<-as.numeric(t(unclass(x)))
-  rval<-data.frame(values=factor(values,levels=levels),scores=s[s>0],id)
-  names(rval)[1]<-label
+  rval<-data.frame(id,values=factor(values,levels=levels),scores=s[s>0])
+  names(rval)[2]<-label
   rval
 }
 
