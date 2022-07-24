@@ -112,7 +112,8 @@ print.mr <-function(x,...,na.rm=FALSE,sep="+"){
 }
 
 
-mr_count<-function(x,na.rm=TRUE) rowSums(x,na.rm=na.rm)
+mr_count<-function(x, na.rm=TRUE) UseMethod("mr_count")
+mr_count.default<-function(x,na.rm=TRUE) rowSums(x,na.rm=na.rm)
 
 "%hasonly%"<- function(x,y) {
   (x %has% y) & (mr_count(x)==1)
@@ -130,8 +131,8 @@ mr_count<-function(x,na.rm=TRUE) rowSums(x,na.rm=na.rm)
     rowSums(sapply(ys, function(y) (x %has% y)))> 0
 }
 
-
-mr_union<-function(x,y){
+mr_union<-function(x,y,...) UseMethod("mr_union")
+mr_union.default<-function(x,y,...){
   x<-as.mr(x)
   y<-as.mr(y)
   if (length(x)!=length(y)) 
@@ -144,7 +145,9 @@ mr_union<-function(x,y){
   class(m)<-"mr"
   m
 }
-mr_diff<-function(x,y){
+
+mr_diff<-function(x,y,...) UseMethod("mr_diff")
+mr_diff.default<-function(x,y,...){
   x<-as.mr(x)
   y<-as.mr(y)
   if (length(x)!=length(y)) 
@@ -160,7 +163,9 @@ mr_diff<-function(x,y){
   class(m)<-"mr"
   m
 }
-mr_intersect<-function(x,y){
+
+mr_intersect<-function(x,y,...) UseMethod("mr_intersect")
+mr_intersect.default<-function(x,y,...){
   x<-as.mr(x)
   y<-as.mr(y)
   if (length(x)!=length(y)) 
@@ -176,21 +181,28 @@ mr_intersect<-function(x,y){
   m
 }
 
-mr_reorder<-function(x, v, fun=median){
+mr_reorder<-function(x,v,fun=median,...) UseMethod("mr_reorder")
+mr_reorder.default<-function(x, v, fun=median,...){
   values<-apply(x, 2, function(xi) fun(v[xi]))
   x<-x[,order(values)]
   x
 }
-mr_inseq<-function(x){
+
+mr_inseq<-function(x,...) UseMethod("mr_inseq")
+mr_inseq.default<-function(x,...){
   x<-x[,order(colnames(x))]
   x
 }
-mr_inorder<-function(x){
+
+mr_inorder<-function(x,...) UseMethod("mr_inorder")
+mr_inorder<-function(x,...){
   pos<-apply(as.logical(x),2, function(xi) min(which(xi)))
   x<-x[,order(pos)]
   x
 }
-mr_infreq<-function(x, na.rm=TRUE){
+
+mr_infreq<-function(x,na.rm=TRUE,...) UseMethod("mr_inorder")
+mr_infreq<-function(x, na.rm=TRUE,...){
   y<-mr_na(x, na=!na.rm)
   freqs<-colSums(x)  
   y<-y[,order(-freqs)]
@@ -198,6 +210,7 @@ mr_infreq<-function(x, na.rm=TRUE){
 }
 
 mr_flatten<-function(x, priorities, sort=FALSE){
+    x<-as.mr(x)
     y<-rep(NA_character_,length(x))
     if (is.null(priorities))
         priorities<-levels(x)
@@ -211,7 +224,8 @@ mr_flatten<-function(x, priorities, sort=FALSE){
     }
 }
 
-mr_recode<-function(x, ...){
+mr_recode<-function(x,...) UseMethod("mr_recode")
+mr_recode.default<-function(x, ...){
     new<-list(...)
     newlevs<-names(new)
     deadlevs<-unlist(new)
@@ -224,16 +238,19 @@ mr_recode<-function(x, ...){
     fix_levels(x)
 }
 
-mr_drop<-function(x, levels){
+mr_drop<-function(x, levels,...) UseMethod("mr_drop")
+mr_drop.default<-function(x, levels,...){
     if(!all(levels %in% levels(x))){
         stop(paste("non-existent levels:", levels[!(levels %in% levels(x))]))
     }
     x[,!(levels(x) %in% levels)]
 }
 
-
 mr_lump<-function(x, n, prop,  other_level = "Other",
-                     ties.method = c("min", "average", "first", "last", "random", "max")) {
+                  ties.method = c("min", "average", "first", "last", "random", "max"),...) UseMethod("mr_lump")
+
+mr_lump.default<-function(x, n, prop,  other_level = "Other",
+                     ties.method = c("min", "average", "first", "last", "random", "max"),...) {
     if(!inherits(x,"mr"))
         stop("x must be an 'mr' object")
     ties.method <- match.arg(ties.method)
