@@ -94,13 +94,13 @@ mr_infreq.vmr<-function(x,na.rm=TRUE,...) {
 
 mr_recode.vmr<-function(x,...){
     x<-as.mr(x)
-    r<-NextMethod(x,...)
+    r<-NextMethod()
     as.vmr(r)
     }
 
 mr_drop.vmr<-function(x, levels,...) {
     x<-as.mr(x)
-    r<-NextMethod(x,levels,...)
+    r<-NextMethod()
     as.vmr(r)
 }
 
@@ -113,13 +113,5 @@ mr_lump.vmr<-function(x, n, prop,  other_level = "Other",
 
 stack1.vmr<-function(x,label,na.rm){
     x<-as.mr(x)
-    levels<-levels(x)
-    x<-unclass(x)
-    x[is.na(x)]<-!na.rm
-    r<-rowSums(x)
-    values<-do.call(c,lapply(seq_len(NROW(x)),function(i) levels[x[i,]]))
-    id<-rep(seq_len(NROW(x)),r)
-    rval<-data.frame(id,values=factor(values,levels=levels))
-    names(rval)[2]<-label
-    rval
+    stack1(x, label, na.rm)
 }
