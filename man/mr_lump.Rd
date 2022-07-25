@@ -9,7 +9,7 @@ Combine the least common or most common levels of a \code{mr} object into an "ot
 }
 \usage{
 mr_lump(x, n, prop, other_level = "Other",
-ties.method = c("min", "average", "first", "last", "random", "max"))
+ties.method = c("min", "average", "first", "last", "random", "max"),...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,6 +28,7 @@ Label for the lumped levels
   \item{ties.method}{
 How to handle ties. Passed to \code{\link{rank}}
 }
+\item{\dots}{not used}
 }
 
 \value{

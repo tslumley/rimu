@@ -26,7 +26,7 @@ x \%hasany\% ys
   \item{y}{
   character vector specifying a level
 }
-\item{y}{
+\item{ys}{
   character vector specifying one or more levels
 }
 }

@@ -33,12 +33,10 @@ data.frame(ethnicity)
 The \code{vmr} class also creates a new S3 vector type, but does it using the \code{vctrs} package from the tidyverse. This is necessary (or at least the easiest way) to include multiple-response objects in tidyverse `tbl_df` objects (tibbles). The \code{vmr} class requires the \code{vctrs} package to work, and is only really useful if you have the \code{pillar} and \code{tibble} packages as well (as even a fairly minimal tidyverse installation will do).  Internally, a \code{vmr} object is a list of character vectors, plus an attribute specifying the permitted levels. It's built on the `vctrs_list_of` class. Unfortunately, this representation does not allow for "don't know" membership. 
 
 ```{r}
-library(tibble)
 eth<-as.vmr(ethnicity, na.rm=TRUE)
 eth
 length(eth)
 unclass(eth)
-tibble(eth)
 ```
 
 All the same functions are available for \code{mr} and \code{vmr} objects, though most of the \code{vmr} methods work by converting to \code{mr} and back again.

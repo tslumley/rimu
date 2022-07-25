@@ -10,13 +10,14 @@ Set operations on multiple-response objects
 These functions take union, intersection, and difference of two multiple-response objects.  An observation has a level in the union if it has that level in either input. It has the level in the intersection if it has the level in both inputs. It has the level in the difference if it has the level in \code{x} and not in \code{y}
 }
 \usage{
-mr_union(x, y)
-mr_intersect(x, y)
-mr_diff(x, y)
+mr_union(x, y,...)
+mr_intersect(x, y,...)
+mr_diff(x, y,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x,y}{Objects of class \code{mr}}
+  \item{\dots}{not used}
 }
 
 

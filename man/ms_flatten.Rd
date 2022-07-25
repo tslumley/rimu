@@ -9,7 +9,7 @@ Convert a multiple-response object into a named numeric vector using a supplied 
 
 }
 \usage{
-ms_flatten(x, priorities, fun, start)
+ms_flatten(x, priorities, fun, start=0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

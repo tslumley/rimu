@@ -14,7 +14,7 @@ These perform diverse useful tasks.  \code{mr_count}  counts the number of level
 }
 \usage{
 mr_count(x, na.rm = TRUE)
-mr_drop(x, levels)
+mr_drop(x, levels,...)
 ms_drop(x, levels)
 mr_na(x, na=TRUE)
 ms_na(x)
@@ -29,6 +29,7 @@ Remove \code{NA} first?
 }
 \item{levels}{character vector of levels to remove}
 \item{na}{Value (\code{TRUE/FALSE}) to set \code{NA} to}
+\item{\dots}{not used}
 }
 
 \value{

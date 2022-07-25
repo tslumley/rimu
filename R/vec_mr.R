@@ -16,7 +16,7 @@ as.vmr.mr<-function(x,na.rm=FALSE,...) {
     }
     rval
 }
-as.vmr.default<-function(x,...) as.vmr(as.mr(x,...))
+as.vmr.default<-function(x,na.rm=FALSE,...) as.vmr(as.mr(x,...),na.rm=na.rm)
 
 vec_ptype_full.vmr <- function(x, ...) "vmultiresp"
 vec_ptype_abbr.vmr <- function(x, ...) "vmr"
