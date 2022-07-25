@@ -5,7 +5,7 @@
 Subset of RStudio 2019 Community Survey
 }
 \description{
-The `rstudiosurvey` data set contains 1838 rows of responses from the 2019 RStudio Community Survey, where columns are the 51 questions and a column for the timestamp. The variable names are the full questions. Multiple responses are separated by a comma and space. A few of the questions included in the survey are:
+The `rstudiosurvey` data set contains 1838 rows of responses from the 2019 RStudio Community Survey, where columns are the 51 questions and a column for the timestamp. The variable names are the full questions. Multiple responses are separated by a comma and space. Non-ASCII characters have been converted with the "ASCII//TRANSLIT" option of \code{\link{iconv}}. 
 }
 \usage{data("rstudiosurvey")}
 \format{
