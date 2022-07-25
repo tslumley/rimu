@@ -1,0 +1,56 @@
+---
+title: "Internals of multiple response objects"
+author: "Thomas Lumley"
+date: "25/07/2022"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Internals of multiple response objects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+There are three main classes in the `rimu` package: two implementations of multiple-response objects and one of multiple-score objects.  Multiple-response objects generalise factors.
+Like factors, they have a set of permitted levels; unlike factors, it's possible for zero or more than one of the levels to be observed.
+Multiple responses have the same relationship to check boxes that factors have to radio buttons.
+
+
+The main \code{mr} class represents multiple-response objects internally by a logical matrix. Each row has a logical vector, with an entry corresponding to each level of the factor: `TRUE` if that level was observed, `FALSE` if it was not (and `NA` if we don't know). The \code{mr} objects behave as a single S3 vector in many ways: they can be a single data frame column, the `length` function returns the number of rows, they print as a single character vector.
+
+
+```{r}
+library(rimu)
+data(ethnicity)
+ethnicity
+length(ethnicity)
+unclass(ethnicity)
+data.frame(ethnicity)
+```
+
+The \code{vmr} class also creates a new S3 vector type, but does it using the \code{vctrs} package from the tidyverse. This is necessary (or at least the easiest way) to include multiple-response objects in tidyverse `tbl_df` objects (tibbles). The \code{vmr} class requires the \code{vctrs} package to work, and is only really useful if you have the \code{pillar} and \code{tibble} packages as well (as even a fairly minimal tidyverse installation will do).  Internally, a \code{vmr} object is a list of character vectors, plus an attribute specifying the permitted levels. It's built on the `vctrs_list_of` class. Unfortunately, this representation does not allow for "don't know" membership. 
+
+```{r}
+library(tibble)
+eth<-as.vmr(ethnicity, na.rm=TRUE)
+eth
+length(eth)
+unclass(eth)
+tibble(eth)
+```
+
+All the same functions are available for \code{mr} and \code{vmr} objects, though most of the \code{vmr} methods work by converting to \code{mr} and back again.
+
+Finally, \code{ms} objects have a non-zero numeric score for each object.  This might be a rank (list the first three birds you saw) or a monetary amount (how much did you spend on...). Internally, they are represented as numeric matrices.
+
+```{r}
+data(nzbirds)
+nzbirds
+d<-data.frame(nzbirds)
+dim(d)
+d
+as.mr(nzbirds)
+
+```
