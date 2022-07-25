@@ -65,6 +65,7 @@ S3method(format, vmr)
 S3method(as.vmr, mr)
 S3method(as.vmr, default)
 S3method(format, pillar_shaft_vmr)
+S3method(levels, vmr)
 
 S3method(mr_count,default)
 S3method(mr_union, default)
