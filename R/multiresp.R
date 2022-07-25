@@ -195,14 +195,14 @@ mr_inseq.default<-function(x,...){
 }
 
 mr_inorder<-function(x,...) UseMethod("mr_inorder")
-mr_inorder<-function(x,...){
+mr_inorder.default<-function(x,...){
   pos<-apply(as.logical(x),2, function(xi) min(which(xi)))
   x<-x[,order(pos)]
   x
 }
 
 mr_infreq<-function(x,na.rm=TRUE,...) UseMethod("mr_inorder")
-mr_infreq<-function(x, na.rm=TRUE,...){
+mr_infreq.default<-function(x, na.rm=TRUE,...){
   y<-mr_na(x, na=!na.rm)
   freqs<-colSums(x)  
   y<-y[,order(-freqs)]

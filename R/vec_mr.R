@@ -1,20 +1,30 @@
 new_vmr <- function(x,levels=unique(do.call(c,x))) {
-  new_list_of(x, ptype = character(), class = "vmr", levs=levels)
+  vctrs::new_list_of(x, ptype = character(), class = "vmr", levs=levels)
 }
 
 as.vmr<-function(x,...) UseMethod("as.vmr")
-as.vmr.mr<-function(x,...) {
+as.vmr.mr<-function(x,na.rm=FALSE,...) {
+    if(na.rm)
+        x<-mr_na(x, FALSE)        
     l<-levels(x)
-    y<-lapply(apply(x,1,c, simplify=FALSE), function(i) l[as.logical(i)])
-    new_vmr(y,l)
+    y<-lapply(seq_len(length(x)), function(i) l[as.logical(x[i,])])
+    rval <- new_vmr(y,l)
+    if (!na.rm && any(i<-rowSums(is.na(x))>0)){
+        for(j in which(i)){
+            rval[[j]]<- NA_character_
+            }
+    }
+    rval
 }
 as.vmr.default<-function(x,...) as.vmr(as.mr(x,...))
 
 vec_ptype_full.vmr <- function(x, ...) "vmultiresp"
 vec_ptype_abbr.vmr <- function(x, ...) "vmr"
 
+levels.vmr<-function(x,...) attr(x, "levs")
+
 format.vmr <- function(x, ...) {
-    format(as.mr(unclass(x),...,levels=attr(x,"levs")))
+    format(as.mr(unclass(x),...,levels=levels(x)))
 }
 
 obj_print_data.vmr <- function(x, ...) {
@@ -38,7 +48,7 @@ pillar_shaft.vmr <- function(x, ...) {
 
 
 format.pillar_shaft_vmr <- function(x, width, ...) {
-  if (get_max_extent(x$full) <= width) {
+  if (pillar::get_max_extent(x$full) <= width) {
     ornament <- x$full
   } else {
     ornament <- x$short
