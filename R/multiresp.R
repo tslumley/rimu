@@ -316,6 +316,17 @@ stack1.mr<-function(x,label,na.rm){
   rval
 }
 
+stack1.default<-function(x,label,na.rm){
+    rval<-data.frame(id=1:NROW(x), values=x)
+    names(rval)[2]<-label
+    rval
+    }
+
+stack1.character<-function(x,label,na.rm){
+    stack1(as.factor(x), label, na.rm=na.rm)
+}
+
+
 stack1<-function(x,label, na.rm) UseMethod("stack1")
 
 mr_stack<-function(x,..., na.rm=FALSE){
