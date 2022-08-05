@@ -75,7 +75,7 @@ names(rstudiosurvey)[40]
 ## Other software being used
 other_software<- as.mr(rstudiosurvey[[40]])
 mtable(other_software)
-## only those with at least 20 responses
+## top 20 responses
 common<-mr_lump(other_software, n=20)
 mtable(common)
 ## 'None' isn't really another package
