@@ -49,11 +49,14 @@ data(rstudiosurvey)
 ## Other software being used
 other_software<- as.mr(rstudiosurvey[[40]])
 mtable(other_software)
-## only those with at least 20 responses
+## The top 20 responses
 common<-mr_lump(other_software, n=20)
 mtable(common)
 ## 'None' isn't really another package
 mtable(mr_drop(common,"None"))
+
+## Packages with at least 20% use
+mtable(mr_lump(other_software, prop=0.2))
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
