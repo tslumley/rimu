@@ -6,6 +6,7 @@
 \alias{as.mr.ms}
 \alias{as.mr.factor}
 \alias{as.mr.character}
+\alias{as.mr.default}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Construct multiple-response objects
@@ -16,10 +17,12 @@ Constructs \code{mr} objects representing multiple-choice questions where more t
 \usage{
 as.mr(x, ...)
 \method{as.mr}{logical}(x,name,...)
-\method{as.mr}{list}(x,...,levels=NULL)
-\method{as.mr}{factor}(x,...)
-\method{as.mr}{data.frame}(x,...,na.rm=TRUE)
-\method{as.mr}{character}(x,sep=", ", ..., levels=NULL)
+\method{as.mr}{list}(x, sort.levels=TRUE,...,levels=NULL)
+\method{as.mr}{factor}(x, sort.levels=FALSE,...)
+\method{as.mr}{data.frame}(x, sort.levels=FALSE,...,na.rm=TRUE)
+\method{as.mr}{character}(x, sep=", ", sort.levels=TRUE,..., levels=NULL)
+\method{as.mr}{default}(x, sort.levels=TRUE, levels=unique(x),...)
+\method{as.mr}{ms}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -29,6 +32,9 @@ as.mr(x, ...)
   \item{\dots}{
     for compatibility; not used
   }
+  \item{sort.levels}{put the levels of the \code{mr} object in
+    increasing sort order. Defaults to \code{TRUE} except when there
+    already is a natural order}
   \item{levels}{optional character vector of the permitted levels}
   \item{name}{level name (for a vector) or vector of level names to
     replace the column names (for a matrix)}

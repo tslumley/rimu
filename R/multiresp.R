@@ -15,16 +15,19 @@ fix_levels<-function(x){
     y
 }
 
-as.mr.data.frame<-function(x,...,na.rm=TRUE){        
+as.mr.data.frame<-function(x,sort.levels=FALSE,...,na.rm=TRUE){        
     x<-as.matrix(x)>0
     if (na.rm){
         x[is.na(x)]<-FALSE
      }
     class(x)<-"mr"
-    x
+    if(sort.levels)
+        mr_inseq(x)
+    else
+        x
 }
 
-as.mr.list<-function(x,...,levels=NULL){
+as.mr.list<-function(x,sort.levels=TRUE,...,levels=NULL){
     levs<-unique(do.call(c,x))
     if (!is.null(levels)){
         if (any(xtra<-setdiff(levs,levels)))
@@ -37,12 +40,15 @@ as.mr.list<-function(x,...,levels=NULL){
     }
     colnames(m)<-levs
     class(m)<-"mr"
-    m
+    if(sort.levels)
+        mr_inseq(m)
+    else
+        m
 }
 
-as.mr.character<-function(x, sep=", ",...,levels=NULL){
+as.mr.character<-function(x, sep=", ",sort.levels=TRUE, ...,levels=NULL){
     l<-strsplit(x,sep)
-    as.mr(l,levels=levels)
+    as.mr(l,sort.levels=sort.levels, levels=levels)
 }
 
 levels.mr<-function(x,...) colnames(x)
@@ -346,18 +352,24 @@ mr_stack<-function(x,..., na.rm=FALSE){
 
 as.mr<-function(x,...) UseMethod("as.mr",x)
 as.mr.mr<-function(x,...) x
-as.mr.default<-function(x,levels=unique(x),...){
+as.mr.default<-function(x,sort.levels=TRUE, levels=unique(x),...){
   rval<-outer(x,levels,"==")
   colnames(rval)<-levels
   class(rval)<-"mr"
-  rval
+  if(sort.levels)
+      mr_inseq(rval)
+  else
+      rval
 }
 
-as.mr.factor<-function(x,...){
+as.mr.factor<-function(x,sort.levels=FALSE,...){
   rval<-outer(x,levels(x),"==")
   colnames(rval)<-levels(x)
   class(rval)<-"mr"
-  rval
+  if(sort.levels)
+      mr_inseq(rval)
+  else
+      rval
 }
 
 
@@ -436,3 +448,9 @@ length.mr <- function(x) nrow(x)
 names.mr <- function(x) rownames(x)
 format.mr <- function(x, ...) format(as.character.mr(x), ...)
 as.data.frame.mr <- function(x, ...) as.data.frame.model.matrix(x, ...)
+
+## summary
+
+summary.mr<-function(object,maxsum=100L,...){
+    summary(as.factor(as.character(object)), maxsum=maxsum,...)
+    }

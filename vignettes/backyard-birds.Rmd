@@ -1,6 +1,6 @@
 ---
 vignette: >
-  %\VignetteIndexEntry{backyard-birds}
+  %\VignetteIndexEntry{Multiple responses are for the birds}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 title: "Multiple responses are for the birds"

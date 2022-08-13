@@ -1,8 +1,14 @@
 Package: rimu
 Title: Responses in Multiplex
-Version: 0.4
-Author: Thomas Lumley, Annie Cohen
-Description: Tools for manipulating, exploring, and visualising  multiple-response data, including scored or ranked responses. 
+Version: 0.5
+Authors@R: c(person(given = "Thomas",
+           family = "Lumley",
+           role = c("aut", "cre"),
+           email = "t.lumley@auckland.ac.nz"),
+    person(given = "Annie",
+           family = "Cohen",
+           role = "ctb"))
+Description: Tools for manipulating, exploring, and visualising  multiple-response data, including scored or ranked responses. Conversions to and from factors, lists, strings, matrices; reordering, lumping, flattening; set operations; tables; frequency and co-occurence plots.
 Imports: graphics, stats, UpSetR, ggplot2
 Depends: R (>= 3.6.0)
 Suggests: knitr, rmarkdown, vctrs, pillar
