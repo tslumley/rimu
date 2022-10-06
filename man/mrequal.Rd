@@ -39,8 +39,8 @@ Logical vector
 data(ethnicity)
 
 ethnicity
-ethnicity \%has\% "Māori"
-ethnicity \%hasonly\% "Māori"
+ethnicity \%has\% "Maori"
+ethnicity \%hasonly\% "Maori"
 
 data(nzbirds)
 as.mr(nzbirds) %hasall% c("kea","kaki")

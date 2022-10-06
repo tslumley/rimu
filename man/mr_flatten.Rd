@@ -33,10 +33,11 @@ data(ethnicity)
 ethnicity
 
 ## NZ 'prioritised ethnicity'
+priority<-c("Maori", "Pacific", "Asian", "European/Other")
 eth <- mr_na(mr_recode(ethnicity, `European/Other`="European", `European/Other` = "MELAA"), FALSE)
-mr_flatten(eth, c("Māori","Pacific","Asian","European/Other"))
-mr_flatten(eth, c("Māori","Pacific","Asian","European/Other"), sort=TRUE)
 
+mr_flatten(eth, priority)
+mr_flatten(eth, priority, sort=TRUE)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

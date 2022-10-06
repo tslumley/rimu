@@ -38,7 +38,7 @@ ethnicity
 
 ## NZ 'prioritised ethnicity'
 eth <- mr_recode(ethnicity, `European/Other`="European", `European/Other` = "MELAA")
-mr_flatten(ethnicity, c("Māori","Pacific","Asian","European/Other"))
+mr_flatten(ethnicity, c("Maori","Pacific","Asian","European/Other"))
 
 data(nzbirds)
 ## hardest to see first
