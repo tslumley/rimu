@@ -16,7 +16,7 @@ Constructs \code{mr} objects representing multiple-choice questions where more t
 }
 \usage{
 as.mr(x, ...)
-\method{as.mr}{logical}(x,name,...)
+\method{as.mr}{logical}(x,name=deparse(substitute(x)),...)
 \method{as.mr}{list}(x, sort.levels=TRUE,...,levels=NULL)
 \method{as.mr}{factor}(x, sort.levels=FALSE,...)
 \method{as.mr}{data.frame}(x, sort.levels=FALSE,...,na.rm=TRUE)
@@ -48,7 +48,7 @@ with the levels as column names.
 The method for logical \code{x} coerces a single vector to a one-column
 matrix, and then applies the \code{name} argument as the column
 name. Given a matrix, the \code{name} argument is optional and replaces
-the existing column names
+the existing column names; the default is not used.
 
 The method for list \code{x} takes a list of character vectors that
 represent the levels present for one observation. The method for strings splits the string at the supplied separator and then uses the list method.

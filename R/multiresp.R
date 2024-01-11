@@ -373,8 +373,9 @@ as.mr.factor<-function(x,sort.levels=FALSE,...){
 }
 
 
-as.mr.logical<-function(x,name,...){
+as.mr.logical<-function(x,name=deparse(substitute(x)),...){
     if (!is.matrix(x)){
+        name<-force(name)
         x<-as.matrix(x)
         colnames(x)<-name
     } else {
