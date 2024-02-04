@@ -432,6 +432,9 @@ image.mr<-function(x,type=c("overlap","conditional","association","raw"),...){
   }
 }
 
+barplot.mr<-function(height, ...) barplot(mtable(height),...)
+
+
 globalVariables(c("x","y","z"))
 
 ggimage<-function(x,xlab,ylab){

@@ -125,3 +125,11 @@ stack1.vmr<-function(x,label,na.rm){
     x<-as.mr(x)
     stack1(x, label, na.rm)
 }
+
+
+plot.vmr<-function(x, ...) plot(as.mr(x),...)
+image.vmr<-function(x,type = c("overlap", "conditional", "association", 
+                               "raw"), ...) image(as.mr(x), type=type,...)
+
+barplot.vmr<-function(height, ...) barplot(mtable(height),...)
+

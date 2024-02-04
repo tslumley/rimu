@@ -1,6 +1,7 @@
 \name{plot.mr}
 \alias{plot.mr}
 \alias{image.mr}
+\alias{barplot.mr}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Plot multiple-response objects
@@ -10,16 +11,21 @@ The plot method for \code{mr} objects is an UpSet plot, showing co-occurences of
 }
 \usage{
 \method{plot}{mr}(x, ...)
-\method{image}{mr}(x, type = c("overlap", "conditional", "association",  "raw"), ...) 
+\method{image}{mr}(x, type = c("overlap", "conditional", "association",
+"raw"), ...) 
+\method{barplot}{mr}(height,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
 \code{mr} object
 }
-\item{type}{\code{"overlap"} is a plot of counts, \code{"conditional"} is of column proportions, \code{"association"} has rows and columns scaled to give unit diagonals. \code{"raw"} just plots \code{as.logical(x)}.}
-  \item{\dots}{
-Not used
+\item{type}{\code{"overlap"} is a plot of counts, \code{"conditional"}
+  is of column proportions, \code{"association"} has rows and columns
+  scaled to give unit diagonals. \code{"raw"} just plots
+  \code{as.logical(x)}.}
+\item{height}{\code{mr} object; the barplot will be of \code{mtable(height)}}
+  \item{\dots}{Passed to \code{\link{barplot}} but otherwise not used
 }
 }
 \value{

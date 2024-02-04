@@ -37,7 +37,11 @@ S3method(as.numeric,ms)
 S3method(image,mr)
 S3method(image,ms)
 S3method(plot,mr)
+S3method(barplot, mr)
 
+S3method(image,vmr)
+S3method(plot,vmr)
+S3method(barplot, vmr)
 
 S3method(levels,mr)
 S3method(levels,ms)
