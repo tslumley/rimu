@@ -29,6 +29,8 @@ drop \code{NA} values?
 A data frame with columns \code{values} and \code{id}, plus a column \code{scores} if \code{x} is a  \code{ms} object. When more than one object is supplied, the result is an outer join of the two indindividual results, so it contains a row for every combination of an observed value from each object.
 }
 
+\seealso{\code{\link{vmr_stack}}}
+
 \examples{
 data(ethnicity)
 ethnicity

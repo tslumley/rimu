@@ -133,3 +133,18 @@ image.vmr<-function(x,type = c("overlap", "conditional", "association",
 
 barplot.vmr<-function(height, ...) barplot(mtable(height),...)
 
+as.mr.vmr<-function(x, ...) as.mr.list(x,sort.levels=FALSE,...,levels=levels(x))
+
+as.logical.vmr<- function(x,...) as.logical(as.mr(x))
+
+
+
+vmr_stack<-function(data, col,names_to="level"){
+	s<- data|> dplyr::pull({{col}}) |> as.logical()
+	cbind(data, .prefix_axolotl=s) |> 
+		tidyr::pivot_longer(tidyselect::starts_with(".prefix_axolotl."),
+		names_prefix=".prefix_axolotl.", names_to=names_to,
+		values_to=".the_bit_bucket") |> 
+		filter(.the_bit_bucket) |> 
+		select(-".the_bit_bucket")
+	}
