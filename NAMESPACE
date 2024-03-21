@@ -41,6 +41,7 @@ S3method(image,mr)
 S3method(image,ms)
 S3method(plot,mr)
 S3method(barplot, mr)
+S3method(plot,mtable)
 
 S3method(image,vmr)
 S3method(plot,vmr)

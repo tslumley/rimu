@@ -402,7 +402,14 @@ mtable<-function(x,y,na.rm=TRUE){
     dimnames(rval)<-list(levels(x),levels(y))
     rval
   }
+  class(rval)<-"mtable"
+  rval
 }
+
+plot.mtable<-function(x,y,main=deparse(substitute(x)),...){
+    plot(as.table(x),main=main,...)
+    }
+
 
 as.matrix.mr<-function(x,...){
     m<-as.logical(x,...)
@@ -458,3 +465,6 @@ as.data.frame.mr <- function(x, ...) as.data.frame.model.matrix(x, ...)
 summary.mr<-function(object,maxsum=100L,...){
     summary(as.factor(as.character(object)), maxsum=maxsum,...)
     }
+
+
+
