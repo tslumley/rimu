@@ -11,7 +11,7 @@ Authors@R: c(person(given = "Thomas",
 Description: Tools for manipulating, exploring, and visualising  multiple-response data, including scored or ranked responses. Conversions to and from factors, lists, strings, matrices; reordering, lumping, flattening; set operations; tables; frequency and co-occurrence plots.
 Imports: graphics, stats, UpSetR, ggplot2
 Depends: R (>= 3.6.0)
-Suggests: knitr, rmarkdown, vctrs, pillar
+Suggests: knitr, rmarkdown, vctrs, pillar, dplyr, tidyr, tidyselect
 VignetteBuilder: knitr
 Encoding: UTF-8
 License: GPL-3

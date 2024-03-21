@@ -3,7 +3,7 @@ export( "%has%", "%hasonly%","%hasany%","%hasall%", as.mr,  as.ms, mean0, mr_fla
 mr_diff, mr_infreq, mr_inorder, mr_inseq, mr_intersect, mr_na, 
 mr_reorder, mr_union, ms_infreq, ms_inorder, ms_inscore, ms_inseq, mr_recode,
 ms_na, ms_reorder, ms_recode, ms_flatten, mr_lump, mr_drop, ms_drop, mtable,
-mr_stack, ms_stack, as.vmr, new_vmr)
+mr_stack, ms_stack, as.vmr, new_vmr, vmr_stack)
 
 S3method("[",mr)
 S3method("[",ms)
@@ -14,6 +14,8 @@ S3method(as.data.frame,ms)
 S3method(as.logical,mr)
 S3method(as.logical,ms)
 S3method(as.matrix,mr)
+S3method(as.logical, vmr)
+S3method(as.matrix, vmr)
 
 S3method(as.mr,data.frame)
 S3method(as.mr,default)
@@ -23,6 +25,7 @@ S3method(as.mr,ms)
 S3method(as.mr,mr)
 S3method(as.mr,logical)
 S3method(as.mr, character)
+S3method(as.mr,vmr)
 
 
 S3method(as.ms,data.frame)

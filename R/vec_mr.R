@@ -145,6 +145,10 @@ vmr_stack<-function(data, col,names_to="level"){
 		tidyr::pivot_longer(tidyselect::starts_with(".prefix_axolotl."),
 		names_prefix=".prefix_axolotl.", names_to=names_to,
 		values_to=".the_bit_bucket") |> 
-		filter(.the_bit_bucket) |> 
-		select(-".the_bit_bucket")
+		dplyr::filter(.the_bit_bucket) |> 
+		dplyr::select(-".the_bit_bucket")
 	}
+
+
+as.logical.vmr<-function(x,...) as.logical(as.mr(x))
+as.matrix.vmr<-function(x,...) as.matrix(as.mr(x))
